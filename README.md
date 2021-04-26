@@ -1,2 +1,5 @@
 # sifa-poliklinigi
-Konu 3. Şifa Polikliniği Bilgi Sistemi
+Şifa Polikliniği Bilgi Sistemi
+
+  ---
+![usecase resim](usecase.png)
