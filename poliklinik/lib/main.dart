@@ -7,6 +7,9 @@ import 'package:poliklinik/pages/admin.dart';
 import 'giris_page.dart';
 import 'pages/doktor.dart';
 import 'pages/tibbi_sekreter.dart';
+import 'pages/kayit_gorevlisi.dart';
+import 'pages/tekniker.dart';
+import 'pages/veznedar.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,6 +55,18 @@ class MyApp extends StatelessWidget {
 
                     case "admin":
                       page = Admin();
+                      break;
+
+                    case "kayit-gorevlisi":
+                      page = KayitGorevlisi();
+                      break;
+
+                    case "veznedar":
+                      page = Veznedar();
+                      break;
+
+                    case "tekniker":
+                      page = Tekniker();
                       break;
 
                     default:
