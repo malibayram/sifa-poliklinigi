@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -60,6 +62,56 @@ class Doktor extends StatelessWidget {
                       horizontal: 16.0,
                     ),
                     child: Text("Güncelle"),
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Text("Tedavi Bilgisi Ekle"),
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Text("Reçete Ekle"),
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Text("Rapor Ekle"),
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Text("İşlem Talebi Yap"),
+                  ),
+                ),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Text("Sevk"),
                   ),
                 )
               ],
