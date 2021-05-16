@@ -27,7 +27,7 @@ class Tekniker extends StatelessWidget {
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: "Hastanın Kimlik Numarası",
+                    labelText: "Hasta Kimlik Numarası",
                   ),
                 ),
                 SizedBox(height: 8),
