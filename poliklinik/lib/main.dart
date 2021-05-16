@@ -3,6 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:poliklinik/pages/admin.dart';
+import 'package:poliklinik/pages/veznedar.dart';
+import 'package:poliklinik/pages/tekniker.dart';
+import 'package:poliklinik/pages/doktor.dart';
+import 'package:poliklinik/pages/kayit_gorevlisi.dart';
+import 'package:poliklinik/pages/tibbi_sekreter.dart';
 
 import 'giris_page.dart';
 import 'pages/doktor.dart';
