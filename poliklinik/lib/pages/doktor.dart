@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
@@ -116,5 +114,60 @@ class Doktor extends StatelessWidget {
                 )
               ],
             )));
+  }
+}
+
+class TestWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        children: <Widget>[
+          Container(
+            alignment: Alignment.bottomCenter,
+            constraints: BoxConstraints(
+              minHeight: 50.0,
+            ),
+            child: Text(
+              'Top label',
+              style: TextStyle(
+                  fontSize: 22.0,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.teal),
+            ),
+          ),
+          Expanded(
+            child: ListView.separated(
+              itemCount: 20,
+              separatorBuilder: (context, index) {
+                return Divider();
+              },
+              itemBuilder: (context, index) {
+                return Material(
+                  child: ListTile(
+                    leading: CircleAvatar(),
+                    title: Text('Test title'),
+                  ),
+                );
+              },
+            ),
+          ),
+          Container(
+            constraints: BoxConstraints(
+              minHeight: 50.0,
+            ),
+            child: Center(
+              child: Text(
+                'Bottom label',
+                style: TextStyle(
+                    fontSize: 22.0,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
