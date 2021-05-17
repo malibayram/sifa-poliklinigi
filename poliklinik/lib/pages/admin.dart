@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 class Admin extends StatelessWidget {
-  String dropdownValue = 'One';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +20,6 @@ class Admin extends StatelessWidget {
         ],
       ),
       body: DropdownButton<String>(
-        value: dropdownValue,
         icon: const Icon(Icons.arrow_downward),
         iconSize: 24,
         elevation: 16,
@@ -31,12 +29,14 @@ class Admin extends StatelessWidget {
           color: Colors.blue,
         ),
         onChanged: (String? newValue) {
-          {
-            dropdownValue = newValue!;
-          }
+          {}
         },
-        items: <String>['One', 'Two', 'Free', 'Four']
-            .map<DropdownMenuItem<String>>((String value) {
+        items: <String>[
+          'Klinik Ekle',
+          'Klinik Sil',
+          'Personel Ekle',
+          'Personel Sil'
+        ].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
             child: Text(value),
