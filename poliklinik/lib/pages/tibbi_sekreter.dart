@@ -31,6 +31,58 @@ class TibbiSekreter extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 8),
+                Row(
+                  children: [
+                    DropdownButton<String>(
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.green),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.blue,
+                      ),
+                      onChanged: (String? newValue) {
+                        {}
+                      },
+                      items: <String>[
+                        'Göz',
+                        'Üroloji',
+                        'Ortopedi',
+                        'Psikiyatri'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                    DropdownButton<String>(
+                      icon: const Icon(Icons.arrow_downward),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: const TextStyle(color: Colors.green),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.blue,
+                      ),
+                      onChanged: (String? newValue) {
+                        {}
+                      },
+                      items: <String>[
+                        'Doktor A',
+                        'Doktor B',
+                        'Doktor C',
+                        'Doktor D'
+                      ].map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ],
+                ),
                 OutlinedButton(
                   onPressed: () {},
                   child: Padding(
@@ -40,7 +92,17 @@ class TibbiSekreter extends StatelessWidget {
                     ),
                     child: Text("Hasta Ara"),
                   ),
-                )
+                ),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 8.0,
+                      horizontal: 16.0,
+                    ),
+                    child: Text("Randevu Oluştur"),
+                  ),
+                ),
               ],
             )));
   }
