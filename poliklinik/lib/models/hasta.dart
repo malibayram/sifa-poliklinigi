@@ -5,7 +5,7 @@ class Hasta {
   String? isim;
   String? soyisim;
   String? tcNo;
-  int? yas;
+  DateTime? dogumtarihi;
 
   List<Recete>? receteler;
   List<Odeme>? odemeler;
