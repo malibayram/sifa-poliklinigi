@@ -1,6 +1,5 @@
 import 'islem.dart';
 import 'recete.dart';
-import 'randevu.dart';
 
 class Doktor {
   String? isim;
@@ -19,7 +18,5 @@ class Doktor {
     islemler?.add(islem);
   }
 
-  randevuEkle(Randevu randevu) {
-    randevular?.add(randevu);
-  }
+ 
 }

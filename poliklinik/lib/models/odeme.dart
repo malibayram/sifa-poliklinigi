@@ -9,11 +9,5 @@ class Odeme {
   String? faturaNo;
   double? tutar;
 
-  List<Islem>? islemler;
-
-  islemEkle(Islem islem) {
-    islemler?.add(islem);
-  }
-
 }
 
