@@ -2,14 +2,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:poliklinik/pages/admin.dart';
-import 'package:poliklinik/pages/veznedar.dart';
-import 'package:poliklinik/pages/tekniker.dart';
-import 'package:poliklinik/pages/doktor.dart';
-import 'package:poliklinik/pages/kayit_gorevlisi.dart';
-import 'package:poliklinik/pages/tibbi_sekreter.dart';
 
 import 'giris_page.dart';
+import 'pages/admin.dart';
 import 'pages/doktor.dart';
 import 'pages/tibbi_sekreter.dart';
 import 'pages/kayit_gorevlisi.dart';
@@ -37,6 +32,7 @@ class MyApp extends StatelessWidget {
         valueListenable:
             Hive.box('ayarlar').listenable(keys: ['tema', 'personel']),
         builder: (context, box, widget) {
+          print(MediaQuery.of(context).size.width);
           return Center(
             child: FutureBuilder<FirebaseApp>(
               future: Firebase.initializeApp(),
@@ -75,7 +71,12 @@ class MyApp extends StatelessWidget {
                       break;
 
                     default:
-                      page = GirisPage();
+                      page = SizedBox(
+                        width: MediaQuery.of(context).size.width > 500
+                            ? 500
+                            : double.maxFinite,
+                        child: GirisPage(),
+                      );
                   }
                   return page;
                 }

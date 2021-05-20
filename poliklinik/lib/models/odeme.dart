@@ -1,0 +1,3 @@
+class Odeme {
+  DateTime? tarih;
+}
