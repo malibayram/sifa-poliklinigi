@@ -8,8 +8,7 @@ class Doktor {
 
   List<Recete>? receteler;
   List<Islem>? islemler;
-  List<Randevu>? randevular;
-
+  
   receteEkle(Recete recete) {
     receteler?.add(recete);
   }

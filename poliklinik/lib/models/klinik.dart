@@ -1,4 +1,3 @@
-import 'doktor.dart';
 
 
 class Klinik {

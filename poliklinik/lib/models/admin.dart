@@ -3,7 +3,7 @@ import 'klinik.dart';
 
 class Admin extends Personel {
 
-List<Personel>? personeller;
+
   
 personelEkle(Personel personel) {
     personeller?.add(personel);
