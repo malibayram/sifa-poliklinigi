@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Şifa Polikliniği',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.green),
       home: ValueListenableBuilder<Box>(
         valueListenable:
             Hive.box('ayarlar').listenable(keys: ['tema', 'personel']),
