@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 class PersonelTab extends StatelessWidget {
   final _colRef = FirebaseFirestore.instance.collection('kullanicilar');
+  String? email, sifre, personel;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('kullanicilar').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // ignore: unused_local_variable
           List<DocumentSnapshot> kullanicilar = snapshot.data!.docs;
           // ignore: unused_local_variable
           Size screenSize = MediaQuery.of(context).size;
@@ -27,7 +27,8 @@ class PersonelTab extends StatelessWidget {
                           for (DocumentSnapshot ds in kullanicilar)
                             Card(
                               child: ListTile(
-                                title: Text("${(ds.data() as Map)}"),
+                                title:
+                                    Text("${(ds.data() as Map)['personel']}"),
                                 trailing: IconButton(
                                   icon: Icon(Icons.delete),
                                   color: Colors.red,
@@ -53,24 +54,31 @@ class PersonelTab extends StatelessWidget {
                             TextField(
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
-                                labelText: "Personel ID:",
+                                labelText: "Personel:",
                               ),
+                              onChanged: (d) => personel = d,
                             ),
                             TextField(
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "Email:",
                               ),
+                              onChanged: (d) => email = d,
                             ),
                             TextField(
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "Şifre:",
                               ),
+                              onChanged: (d) => sifre = d,
                             ),
                             OutlinedButton(
                               onPressed: () {
-                                _colRef.add({});
+                                _colRef.add({
+                                  'Personel': personel,
+                                  'Email': email,
+                                  'Şifre': sifre,
+                                });
                               },
                               child: Text("Ekle"),
                             ),
