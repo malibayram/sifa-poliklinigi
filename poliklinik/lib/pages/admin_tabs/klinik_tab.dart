@@ -49,7 +49,7 @@ class KlinikTab extends StatelessWidget {
                     builder: (context, constraints) => Container(
                       color: Colors.white,
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 50, vertical: 50),
+                          horizontal: 80, vertical: 40),
                       child: Column(
                         children: [
                           Center(),
@@ -60,6 +60,7 @@ class KlinikTab extends StatelessWidget {
                             ),
                             onChanged: (d) => klinikID = d,
                           ),
+                          SizedBox(height: 8),
                           TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
@@ -67,6 +68,7 @@ class KlinikTab extends StatelessWidget {
                             ),
                             onChanged: (d) => klinikAdi = d,
                           ),
+                          SizedBox(height: 8),
                           TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
@@ -74,7 +76,8 @@ class KlinikTab extends StatelessWidget {
                             ),
                             onChanged: (d) => klinikTel = d,
                           ),
-                          TextButton(
+                          SizedBox(height: 8),
+                          OutlinedButton(
                             onPressed: () {
                               _colRef.add({
                                 'Klinik ID': klinikID,
@@ -82,11 +85,7 @@ class KlinikTab extends StatelessWidget {
                                 'Klinik Tel No': klinikTel,
                               });
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 20),
-                              child: Text("Ekle"),
-                            ),
+                            child: Text("Ekle"),
                           ),
                         ],
                       ),
