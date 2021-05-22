@@ -10,7 +10,7 @@ class KlinikTab extends StatelessWidget {
       stream: FirebaseFirestore.instance.collection('klinik').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<DocumentSnapshot> personeller = snapshot.data!.docs;
+          List<DocumentSnapshot> klinik = snapshot.data!.docs;
           // ignore: unused_local_variable
           Size screenSize = MediaQuery.of(context).size;
 
@@ -24,7 +24,7 @@ class KlinikTab extends StatelessWidget {
                       child: ListView(
                         children: [
                           Divider(),
-                          for (DocumentSnapshot ds in personeller)
+                          for (DocumentSnapshot ds in klinik)
                             Card(
                               child: ListTile(
                                 title: Text("${(ds.data() as Map)}"),
