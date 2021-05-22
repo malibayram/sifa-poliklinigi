@@ -2,15 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PersonelTab extends StatelessWidget {
-  final _colRef = FirebaseFirestore.instance.collection('personeller');
+  final _colRef = FirebaseFirestore.instance.collection('kullanicilar');
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('personeller').snapshots(),
+      stream: FirebaseFirestore.instance.collection('kullanicilar').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           // ignore: unused_local_variable
-          List<DocumentSnapshot> personeller = snapshot.data!.docs;
+          List<DocumentSnapshot> kullanicilar = snapshot.data!.docs;
           // ignore: unused_local_variable
           Size screenSize = MediaQuery.of(context).size;
 
@@ -24,7 +24,7 @@ class PersonelTab extends StatelessWidget {
                       child: ListView(
                         children: [
                           Divider(),
-                          for (DocumentSnapshot ds in personeller)
+                          for (DocumentSnapshot ds in kullanicilar)
                             Card(
                               child: ListTile(
                                 title: Text("${(ds.data() as Map)}"),
@@ -70,11 +70,7 @@ class PersonelTab extends StatelessWidget {
                             ),
                             OutlinedButton(
                               onPressed: () {
-                                _colRef.add({
-                                  'Personel ID': "0001",
-                                  'Email': "admin@sifa.com",
-                                  'Şifre': "admin123",
-                                });
+                                _colRef.add({});
                               },
                               child: Text("Ekle"),
                             ),
