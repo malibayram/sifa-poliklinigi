@@ -1,16 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class KlinikTab extends StatelessWidget {
-  final _colRef = FirebaseFirestore.instance.collection('klinikler');
+  final _colRef = FirebaseFirestore.instance.collection('klinik');
+  String? klinikID, klinikAdi, klinikTel;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('klinikler').snapshots(),
+      stream: FirebaseFirestore.instance.collection('klinik').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // ignore: unused_local_variable
           List<DocumentSnapshot> personeller = snapshot.data!.docs;
           // ignore: unused_local_variable
           Size screenSize = MediaQuery.of(context).size;
@@ -56,26 +55,25 @@ class KlinikTab extends StatelessWidget {
                                 border: OutlineInputBorder(),
                                 labelText: "Klinik ID:",
                               ),
+                              onChanged: (d) => klinikID = d,
                             ),
                             TextField(
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "Klinik Adı:",
                               ),
+                              onChanged: (d) => klinikAdi = d,
                             ),
                             TextField(
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: "Klinik Tel No:",
                               ),
+                              onChanged: (d) => klinikTel = d,
                             ),
                             OutlinedButton(
                               onPressed: () {
-                                _colRef.add({
-                                  'Klinik ID': "001",
-                                  'Klinik Adı': "Göz",
-                                  'Klinik Tel No': "02122121212",
-                                });
+                                _colRef.add({});
                               },
                               child: Text("Ekle"),
                             ),
