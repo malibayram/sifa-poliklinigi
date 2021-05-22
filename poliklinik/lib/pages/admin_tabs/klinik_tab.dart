@@ -48,6 +48,8 @@ class KlinikTab extends StatelessWidget {
                   child: LayoutBuilder(
                     builder: (context, constraints) => Container(
                       color: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 50, vertical: 50),
                       child: Column(
                         children: [
                           Center(),
@@ -70,6 +72,7 @@ class KlinikTab extends StatelessWidget {
                               border: OutlineInputBorder(),
                               labelText: "Klinik Tel No:",
                             ),
+                            onChanged: (d) => klinikTel = d,
                           ),
                           TextButton(
                             onPressed: () {
@@ -79,7 +82,11 @@ class KlinikTab extends StatelessWidget {
                                 'Klinik Tel No': klinikTel,
                               });
                             },
-                            child: Text("Ekle"),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20, vertical: 20),
+                              child: Text("Ekle"),
+                            ),
                           ),
                         ],
                       ),
