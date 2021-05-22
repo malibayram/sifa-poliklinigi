@@ -49,7 +49,7 @@ class PersonelTab extends StatelessWidget {
                       builder: (context, constraints) => Container(
                         color: Colors.white,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 50, vertical: 50),
+                            horizontal: 80, vertical: 40),
                         child: Column(
                           children: [
                             Center(),
@@ -60,6 +60,7 @@ class PersonelTab extends StatelessWidget {
                               ),
                               onChanged: (d) => personel = d,
                             ),
+                            SizedBox(height: 8),
                             TextField(
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
@@ -67,6 +68,7 @@ class PersonelTab extends StatelessWidget {
                               ),
                               onChanged: (d) => email = d,
                             ),
+                            SizedBox(height: 8),
                             TextField(
                               decoration: InputDecoration(
                                 border: OutlineInputBorder(),
@@ -74,6 +76,7 @@ class PersonelTab extends StatelessWidget {
                               ),
                               onChanged: (d) => sifre = d,
                             ),
+                            SizedBox(height: 8),
                             OutlinedButton(
                               onPressed: () {
                                 _colRef.add({
