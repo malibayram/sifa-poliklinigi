@@ -27,7 +27,8 @@ class KlinikTab extends StatelessWidget {
                           for (DocumentSnapshot ds in klinik)
                             Card(
                               child: ListTile(
-                                title: Text("${(ds.data() as Map)}"),
+                                title:
+                                    Text("${(ds.data() as Map)['Klinik Adı']}"),
                                 trailing: IconButton(
                                   icon: Icon(Icons.delete),
                                   color: Colors.red,
@@ -43,44 +44,48 @@ class KlinikTab extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                    flex: 3,
-                    child: LayoutBuilder(
-                      builder: (context, constraints) => Container(
-                        color: Colors.white,
-                        child: Column(
-                          children: [
-                            Center(),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Klinik ID:",
-                              ),
-                              onChanged: (d) => klinikID = d,
+                  flex: 3,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) => Container(
+                      color: Colors.white,
+                      child: Column(
+                        children: [
+                          Center(),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Klinik ID:",
                             ),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Klinik Adı:",
-                              ),
-                              onChanged: (d) => klinikAdi = d,
+                            onChanged: (d) => klinikID = d,
+                          ),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Klinik Adı:",
                             ),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Klinik Tel No:",
-                              ),
-                              onChanged: (d) => klinikTel = d,
+                            onChanged: (d) => klinikAdi = d,
+                          ),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Klinik Tel No:",
                             ),
-                            OutlinedButton(
-                              onPressed: () {
-                                _colRef.add({});
-                              },
-                              child: Text("Ekle"),
-                            ),
-                          ],
-                        ),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              _colRef.add({
+                                'Klinik ID': klinikID,
+                                'Klinik Adı': klinikAdi,
+                                'Klinik Tel No': klinikTel,
+                              });
+                            },
+                            child: Text("Ekle"),
+                          ),
+                        ],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ],
             ),
           );
