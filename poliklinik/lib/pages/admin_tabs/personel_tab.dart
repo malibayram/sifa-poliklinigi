@@ -48,6 +48,8 @@ class PersonelTab extends StatelessWidget {
                     child: LayoutBuilder(
                       builder: (context, constraints) => Container(
                         color: Colors.white,
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 50, vertical: 50),
                         child: Column(
                           children: [
                             Center(),
