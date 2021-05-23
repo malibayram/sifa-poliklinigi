@@ -1,7 +1,6 @@
-
 import 'hasta.dart';
 
-class kayıtGörevlisi {
+class kayitGorevlisi {
   String? isim;
   String? soyisim;
   String? telno;
