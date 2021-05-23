@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:poliklinik/pages/doktor.dart';
 
 class Klinik {
   String? id;
   String? adi;
   String? telNo;
-  List<Doktor> doktorlar = [];
 
-  final klinikColRef = FirebaseFirestore.instance.collection('klinikler');
-  final doktorColRef = FirebaseFirestore.instance.collection('doktorlar');
+  final colRef = FirebaseFirestore.instance.collection('klinik');
 
   Klinik();
 
@@ -27,6 +24,10 @@ class Klinik {
   }
 
   void firebaseEkle() {
-    klinikColRef.add(this.toJson());
+    colRef.doc(this.id).set(this.toJson());
+  }
+
+  void firebasedenSil() {
+    colRef.doc(this.id).delete();
   }
 }

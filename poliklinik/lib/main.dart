@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'giris_page.dart';
-import 'pages/admin.dart';
+import 'pages/admin_page.dart';
 import 'pages/doktor.dart';
 import 'pages/tibbi_sekreter.dart';
 import 'pages/kayit_gorevlisi.dart';
@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
                       break;
 
                     case "admin":
-                      page = Admin();
+                      page = AdminPage();
                       break;
 
                     case "kayit-gorevlisi":

@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
+import 'package:poliklinik/models/admin.dart';
 import 'package:poliklinik/pages/admin_tabs/klinik_tab.dart';
 import 'package:poliklinik/pages/admin_tabs/personel_tab.dart';
 
-class Admin extends StatelessWidget {
+class AdminPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    Admin admin = Admin();
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -31,7 +33,7 @@ class Admin extends StatelessWidget {
         ),
         body: TabBarView(
           children: [
-            KlinikTab(),
+            KlinikTab(admin: admin),
             PersonelTab(),
           ],
         ),

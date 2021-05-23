@@ -1,19 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:poliklinik/models/admin.dart';
 
 import '../../models/klinik.dart';
 
 class KlinikTab extends StatelessWidget {
+  final Admin admin;
+
+  const KlinikTab({Key? key, required this.admin}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final colRef = FirebaseFirestore.instance.collection('klinik');
     final klinik = Klinik();
 
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('klinik').snapshots(),
+      stream: admin.tumKlinikleriAl(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<DocumentSnapshot> klinikler = snapshot.data!.docs;
+          List<Klinik> klinikler = snapshot.data!.docs
+              .map((e) => Klinik.fromJson((e.data() as Map)))
+              .toList();
+
           // ignore: unused_local_variable
           Size screenSize = MediaQuery.of(context).size;
 
@@ -27,17 +33,14 @@ class KlinikTab extends StatelessWidget {
                       child: ListView(
                         children: [
                           Divider(),
-                          for (DocumentSnapshot ds in klinikler)
+                          for (Klinik klnk in klinikler)
                             Card(
                               child: ListTile(
-                                title:
-                                    Text("${(ds.data() as Map)['Klinik Adı']}"),
+                                title: Text("${klnk.adi}"),
                                 trailing: IconButton(
                                   icon: Icon(Icons.delete),
                                   color: Colors.red,
-                                  onPressed: () {
-                                    colRef.doc(ds.id).delete();
-                                  },
+                                  onPressed: klnk.firebasedenSil,
                                 ),
                               ),
                             ),
@@ -61,7 +64,7 @@ class KlinikTab extends StatelessWidget {
                               border: OutlineInputBorder(),
                               labelText: "Klinik ID:",
                             ),
-                            onChanged: (d) => klinik.klinikID = d,
+                            onChanged: (d) => klinik.id = d,
                           ),
                           SizedBox(height: 8),
                           TextField(
@@ -69,7 +72,7 @@ class KlinikTab extends StatelessWidget {
                               border: OutlineInputBorder(),
                               labelText: "Klinik Adı:",
                             ),
-                            onChanged: (d) => klinik.klinikAdi = d,
+                            onChanged: (d) => klinik.adi = d,
                           ),
                           SizedBox(height: 8),
                           TextField(
@@ -77,7 +80,8 @@ class KlinikTab extends StatelessWidget {
                               border: OutlineInputBorder(),
                               labelText: "Klinik Tel No:",
                             ),
-                            onChanged: (d) => klinik.klinikTel = d,
+                            keyboardType: TextInputType.phone,
+                            onChanged: (d) => klinik.telNo = d,
                           ),
                           SizedBox(height: 8),
                           OutlinedButton(
