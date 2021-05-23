@@ -2,6 +2,9 @@ import 'personel.dart';
 import 'klinik.dart';
 
 class Admin extends Personel {
+  List<Personel>? personeller;
+  List<Klinik>? klinikler;
+
   personelEkle(Personel personel) {
     personeller?.add(personel);
   }

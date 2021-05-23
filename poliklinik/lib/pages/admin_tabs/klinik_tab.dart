@@ -1,16 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/klinik.dart';
+
 class KlinikTab extends StatelessWidget {
-  final _colRef = FirebaseFirestore.instance.collection('klinik');
-  String? klinikID, klinikAdi, klinikTel;
   @override
   Widget build(BuildContext context) {
+    final colRef = FirebaseFirestore.instance.collection('klinik');
+    final klinik = Klinik();
+
     return StreamBuilder<QuerySnapshot>(
       stream: FirebaseFirestore.instance.collection('klinik').snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<DocumentSnapshot> klinik = snapshot.data!.docs;
+          List<DocumentSnapshot> klinikler = snapshot.data!.docs;
           // ignore: unused_local_variable
           Size screenSize = MediaQuery.of(context).size;
 
@@ -24,7 +27,7 @@ class KlinikTab extends StatelessWidget {
                       child: ListView(
                         children: [
                           Divider(),
-                          for (DocumentSnapshot ds in klinik)
+                          for (DocumentSnapshot ds in klinikler)
                             Card(
                               child: ListTile(
                                 title:
@@ -33,7 +36,7 @@ class KlinikTab extends StatelessWidget {
                                   icon: Icon(Icons.delete),
                                   color: Colors.red,
                                   onPressed: () {
-                                    _colRef.doc(ds.id).delete();
+                                    colRef.doc(ds.id).delete();
                                   },
                                 ),
                               ),
@@ -58,7 +61,7 @@ class KlinikTab extends StatelessWidget {
                               border: OutlineInputBorder(),
                               labelText: "Klinik ID:",
                             ),
-                            onChanged: (d) => klinikID = d,
+                            onChanged: (d) => klinik.klinikID = d,
                           ),
                           SizedBox(height: 8),
                           TextField(
@@ -66,7 +69,7 @@ class KlinikTab extends StatelessWidget {
                               border: OutlineInputBorder(),
                               labelText: "Klinik Adı:",
                             ),
-                            onChanged: (d) => klinikAdi = d,
+                            onChanged: (d) => klinik.klinikAdi = d,
                           ),
                           SizedBox(height: 8),
                           TextField(
@@ -74,17 +77,11 @@ class KlinikTab extends StatelessWidget {
                               border: OutlineInputBorder(),
                               labelText: "Klinik Tel No:",
                             ),
-                            onChanged: (d) => klinikTel = d,
+                            onChanged: (d) => klinik.klinikTel = d,
                           ),
                           SizedBox(height: 8),
                           OutlinedButton(
-                            onPressed: () {
-                              _colRef.add({
-                                'Klinik ID': klinikID,
-                                'Klinik Adı': klinikAdi,
-                                'Klinik Tel No': klinikTel,
-                              });
-                            },
+                            onPressed: klinik.firebaseEkle,
                             child: Text("Ekle"),
                           ),
                         ],
