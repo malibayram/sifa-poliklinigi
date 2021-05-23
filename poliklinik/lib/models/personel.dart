@@ -1,5 +1,5 @@
 class Personel {
-  String id = "";
-  String email = "";
-  String sifre = "";
+  String? id;
+  String? email;
+  String? sifre;
 }
