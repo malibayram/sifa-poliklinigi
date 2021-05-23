@@ -34,7 +34,7 @@ class AdminPage extends StatelessWidget {
         body: TabBarView(
           children: [
             KlinikTab(admin: admin),
-            PersonelTab(),
+            PersonelTab(admin: admin),
           ],
         ),
       ),
