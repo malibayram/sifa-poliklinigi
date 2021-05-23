@@ -6,12 +6,10 @@ import '../../models/klinik.dart';
 
 class KlinikTab extends StatelessWidget {
   final Admin admin;
-
   const KlinikTab({Key? key, required this.admin}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     final klinik = Klinik();
-
     return StreamBuilder<QuerySnapshot>(
       stream: admin.tumKlinikleriAl(),
       builder: (context, snapshot) {
