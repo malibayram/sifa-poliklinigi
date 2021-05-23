@@ -1,14 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:poliklinik/models/admin.dart';
-import 'package:poliklinik/models/personel.dart';
 
 import '../../models/personel.dart';
 
 class PersonelTab extends StatelessWidget {
   final Admin admin;
-  @override
   const PersonelTab({Key? key, required this.admin}) : super(key: key);
+  @override
   Widget build(BuildContext context) {
     final personel = Personel();
     return StreamBuilder<QuerySnapshot>(
@@ -35,7 +34,7 @@ class PersonelTab extends StatelessWidget {
                           for (Personel prsnl in personeller)
                             Card(
                               child: ListTile(
-                                title: Text("${prsnl.personel}"),
+                                title: Text("${prsnl.email}"),
                                 trailing: IconButton(
                                   icon: Icon(Icons.delete),
                                   color: Colors.red,
