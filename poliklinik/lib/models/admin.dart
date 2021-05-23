@@ -12,6 +12,10 @@ class Admin extends Personel {
     return colRef.snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> tumPersonelleriAl() {
+    return colRef.snapshots();
+  }
+
   personelEkle(Personel personel) {
     personeller.add(personel);
   }
