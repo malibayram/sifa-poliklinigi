@@ -5,7 +5,7 @@ class Personel {
   String? email;
   String? sifre;
 
-  final colRef = FirebaseFirestore.instance.collection('kullanicilar');
+  final colRef = FirebaseFirestore.instance.collection('personel');
 
   Personel();
 
@@ -17,7 +17,7 @@ class Personel {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': this.personel,
+      'personel': this.personel,
       'adi': this.email,
       'tel-no': this.sifre,
     };
