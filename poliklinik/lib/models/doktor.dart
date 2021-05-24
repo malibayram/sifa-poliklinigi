@@ -1,18 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'islem.dart';
+import 'personel.dart';
 import 'recete.dart';
 
-class Doktor {
-  String? id;
-  String? isim;
-  String? soyisim;
-  String? telNo;
-
+class Doktor extends Personel {
   List<Recete>? receteler;
   List<Islem>? islemler;
 
-  final _doktorColRef = FirebaseFirestore.instance.collection('doktorlar');
+  final _personelColRef = FirebaseFirestore.instance.collection('personeller');
 
   Doktor();
 
@@ -35,13 +31,5 @@ class Doktor {
       'soyisim': this.soyisim,
       'tel-no': this.telNo,
     };
-  }
-
-  Future<void> firebaseEkle() async {
-    await _doktorColRef.doc(this.id).set(this.toJson());
-  }
-
-  Future<void> firebasedenSil() async {
-    await _doktorColRef.doc(this.id).delete();
   }
 }

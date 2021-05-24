@@ -1,13 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hive/hive.dart';
+
+import '../models/personel.dart';
 
 class GirisPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    String? email, sifre;
+    Personel personel = Personel();
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -24,7 +22,7 @@ class GirisPage extends StatelessWidget {
                 border: OutlineInputBorder(),
                 labelText: "Email Adresi",
               ),
-              onChanged: (d) => email = d,
+              onChanged: (d) => personel.email = d,
             ),
             SizedBox(height: 8),
             TextField(
@@ -33,63 +31,20 @@ class GirisPage extends StatelessWidget {
                 labelText: "Şifre",
               ),
               obscureText: false,
-              onChanged: (d) => sifre = d,
+              onChanged: (d) => personel.sifre = d,
             ),
             SizedBox(height: 8),
             Row(
               children: [
                 Spacer(),
                 TextButton(
-                  onPressed: () {
-                    if (email != null && sifre != null)
-                      FirebaseAuth.instance
-                          .createUserWithEmailAndPassword(
-                        email: email!,
-                        password: sifre!,
-                      )
-                          .catchError((onError) {
-                        Fluttertoast.showToast(
-                            msg:
-                                "Giriş Yapılırken hata oluştu: ${onError.toString()}");
-                      }).then((userCredential) {
-                        FirebaseFirestore.instance
-                            .collection('kullanicilar')
-                            .doc(userCredential.user?.uid)
-                            .set({
-                          'email': email,
-                          'sifre': sifre,
-                          'timestamp': FieldValue.serverTimestamp(),
-                          'personel': 'admin',
-                        });
-                      });
-                  },
+                  onPressed: () {},
                   child: Text("Şifremi Unuttum"),
                 ),
               ],
             ),
             OutlinedButton(
-              onPressed: () {
-                if (email != null && sifre != null)
-                  FirebaseAuth.instance
-                      .signInWithEmailAndPassword(
-                    email: email!,
-                    password: sifre!,
-                  )
-                      .catchError((onError) {
-                    Fluttertoast.showToast(
-                        msg:
-                            "Giriş Yapılırken hata oluştu: ${onError.toString()}");
-                  }).then((userCredential) {
-                    FirebaseFirestore.instance
-                        .collection('kullanicilar')
-                        .doc(userCredential.user?.uid)
-                        .get()
-                        .then((documentsnapshot) {
-                      Hive.box('ayarlar').put(
-                          'personel', documentsnapshot.data()?['personel']);
-                    });
-                  });
-              },
+              onPressed: personel.girisYap,
               child: Padding(
                 padding: const EdgeInsets.symmetric(
                   vertical: 8.0,

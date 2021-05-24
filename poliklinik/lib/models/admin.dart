@@ -6,16 +6,19 @@ import 'klinik.dart';
 class Admin extends Personel {
   List<Personel> personeller = [];
   List<Klinik> klinikler = [];
-  final _colRef = FirebaseFirestore.instance.collection('klinikler');
+  final _colKlinikRef = FirebaseFirestore.instance.collection('klinikler');
+  final _colPersonelRef = FirebaseFirestore.instance.collection('personeller');
 
   Stream<List<Klinik>> tumKlinikleriAl() {
-    return _colRef
+    return _colKlinikRef
         .snapshots()
         .map((st) => st.docs.map((e) => Klinik.fromJson(e.data())).toList());
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> tumPersonelleriAl() {
-    return colRef.snapshots();
+  Stream<List<Personel>> tumPersonelleriAl() {
+    return _colPersonelRef
+        .snapshots()
+        .map((st) => st.docs.map((e) => Personel.fromJson(e.data())).toList());
   }
 
   personelEkle(Personel personel) {
