@@ -1,7 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:poliklinik/models/admin.dart';
 
+import '../../models/admin.dart';
 import '../../models/personel.dart';
 
 class PersonelTab extends StatelessWidget {
@@ -10,14 +9,10 @@ class PersonelTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final personel = Personel();
-    return StreamBuilder<QuerySnapshot>(
+    return StreamBuilder<List<Personel>>(
       stream: admin.tumPersonelleriAl(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<Personel> personeller = snapshot.data!.docs
-              .map((e) => Personel.fromJson((e.data() as Map)))
-              .toList();
-
           // ignore: unused_local_variable
           Size screenSize = MediaQuery.of(context).size;
 
@@ -31,7 +26,7 @@ class PersonelTab extends StatelessWidget {
                       child: ListView(
                         children: [
                           Divider(),
-                          for (Personel prsnl in personeller)
+                          for (Personel prsnl in snapshot.data!)
                             Card(
                               child: ListTile(
                                 title: Text("${prsnl.email}"),
@@ -48,47 +43,48 @@ class PersonelTab extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                    flex: 3,
-                    child: LayoutBuilder(
-                      builder: (context, constraints) => Container(
-                        color: Colors.white,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 80, vertical: 40),
-                        child: Column(
-                          children: [
-                            Center(),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Personel:",
-                              ),
-                              onChanged: (d) => personel.personel = d,
+                  flex: 3,
+                  child: LayoutBuilder(
+                    builder: (context, constraints) => Container(
+                      color: Colors.white,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 80, vertical: 40),
+                      child: Column(
+                        children: [
+                          Center(),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Personel:",
                             ),
-                            SizedBox(height: 8),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Email:",
-                              ),
-                              onChanged: (d) => personel.email = d,
+                            onChanged: (d) => personel.personelTipi = d,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Email:",
                             ),
-                            SizedBox(height: 8),
-                            TextField(
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: "Şifre:",
-                              ),
-                              onChanged: (d) => personel.sifre = d,
+                            onChanged: (d) => personel.email = d,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Şifre:",
                             ),
-                            SizedBox(height: 8),
-                            OutlinedButton(
-                              onPressed: personel.firebaseEkle,
-                              child: Text("Ekle"),
-                            ),
-                          ],
-                        ),
+                            onChanged: (d) => personel.sifre = d,
+                          ),
+                          SizedBox(height: 8),
+                          OutlinedButton(
+                            onPressed: personel.firebaseEkle,
+                            child: Text("Ekle"),
+                          ),
+                        ],
                       ),
-                    )),
+                    ),
+                  ),
+                ),
               ],
             ),
           );

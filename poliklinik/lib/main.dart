@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:hive_listener/hive_listener.dart';
 
 import 'giris_page.dart';
 import 'pages/admin_page.dart';
@@ -28,11 +29,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Şifa Polikliniği',
       theme: ThemeData(primarySwatch: Colors.green),
-      home: ValueListenableBuilder<Box>(
-        valueListenable:
-            Hive.box('ayarlar').listenable(keys: ['tema', 'personel']),
-        builder: (context, box, widget) {
-          print(MediaQuery.of(context).size.width);
+      home: HiveListener<dynamic>(
+        box: Hive.box('ayarlar'),
+        keys: ['tema', 'personel'],
+        builder: (box) {
+          // print(MediaQuery.of(context).size.width);
           return Center(
             child: FutureBuilder<FirebaseApp>(
               future: Firebase.initializeApp(),
