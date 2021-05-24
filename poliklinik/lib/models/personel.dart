@@ -33,16 +33,15 @@ class Personel {
             final p = Personel.fromJson({...(ds.data() as Map), 'id': ds.id});
             this.id = ds.id;
             this.personelTipi = p.personelTipi;
+            Hive.box('ayarlar').put('personel', p.personelTipi);
           } else {
             _personelColRef.doc(userCredential.user?.uid).set({
               'email': userCredential.user?.email,
               'sifre': sifre,
               'timestamp': FieldValue.serverTimestamp(),
-              'personelTipi': Personel,
+              'personelTipi': 'admin',
             });
           }
-
-          Hive.box('ayarlar').put('personel', "admin");
         });
       });
     else
@@ -63,6 +62,7 @@ class Personel {
   }
 
   Personel.fromJson(Map<String, dynamic>? json) {
+    this.id = json?['id'];
     this.personelTipi = json?['personelTipi'];
     this.email = json?['email'];
     this.sifre = json?['sifre'];
@@ -83,10 +83,16 @@ class Personel {
   }
 
   Future<void> firebaseEkle() async {
-    await _personelColRef.doc(this.id).set(this.toJson());
+    final userCredential = await FirebaseAuth.instance
+        .createUserWithEmailAndPassword(email: email!, password: sifre!);
+    await _personelColRef.doc(userCredential.user!.uid).set(this.toJson());
   }
 
   Future<void> firebasedenSil() async {
-    await _personelColRef.doc(this.id).delete();
+    if (personelTipi != 'admin')
+      await _personelColRef.doc(this.id).delete();
+    else
+      Fluttertoast.showToast(
+          msg: 'Admini Silemezsiniz!', webPosition: 'center');
   }
 }
