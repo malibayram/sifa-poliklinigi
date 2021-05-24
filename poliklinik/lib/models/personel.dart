@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hive/hive.dart';
 
@@ -50,7 +51,16 @@ class Personel {
     if (msg != null) Fluttertoast.showToast(msg: msg!);
   }
 
-  Future<void> cikisYap() async {}
+  Future<void> cikisYap() async {
+    IconButton(
+      icon: Icon(Icons.exit_to_app),
+      onPressed: () {
+        FirebaseAuth.instance
+            .signOut()
+            .then((value) => Hive.box('ayarlar').delete('personel'));
+      },
+    );
+  }
 
   Personel.fromJson(Map<String, dynamic>? json) {
     this.personelTipi = json?['personelTipi'];
