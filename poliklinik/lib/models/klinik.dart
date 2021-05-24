@@ -5,7 +5,7 @@ class Klinik {
   String? adi;
   String? telNo;
 
-  final colRef = FirebaseFirestore.instance.collection('klinik');
+  final _colRef = FirebaseFirestore.instance.collection('klinikler');
 
   Klinik();
 
@@ -24,10 +24,10 @@ class Klinik {
   }
 
   void firebaseEkle() {
-    colRef.doc(this.id).set(this.toJson());
+    _colRef.doc(this.id).set(this.toJson());
   }
 
   void firebasedenSil() {
-    colRef.doc(this.id).delete();
+    _colRef.doc(this.id).delete();
   }
 }

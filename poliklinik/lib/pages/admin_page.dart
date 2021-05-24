@@ -1,9 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
-import 'package:poliklinik/models/admin.dart';
-import 'package:poliklinik/pages/admin_tabs/klinik_tab.dart';
-import 'package:poliklinik/pages/admin_tabs/personel_tab.dart';
+
+import '../models/admin.dart';
+import 'admin_tabs/klinik_tab.dart';
+import 'admin_tabs/personel_tab.dart';
 
 class AdminPage extends StatelessWidget {
   @override

@@ -12,16 +12,14 @@ class KlinikTab extends StatelessWidget {
   Widget build(BuildContext context) {
     final klinik = Klinik();
 
-    return StreamBuilder<QuerySnapshot>(
+    return StreamBuilder<List<Klinik>>(
       stream: admin.tumKlinikleriAl(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<Klinik> klinikler = snapshot.data!.docs
-              .map((e) => Klinik.fromJson((e.data() as Map)))
-              .toList();
-
           // ignore: unused_local_variable
           Size screenSize = MediaQuery.of(context).size;
+
+          print(snapshot.data!);
 
           return Scaffold(
             body: Row(
@@ -33,7 +31,7 @@ class KlinikTab extends StatelessWidget {
                       child: ListView(
                         children: [
                           Divider(),
-                          for (Klinik klnk in klinikler)
+                          for (Klinik klnk in snapshot.data!)
                             Card(
                               child: ListTile(
                                 title: Text("${klnk.adi}"),

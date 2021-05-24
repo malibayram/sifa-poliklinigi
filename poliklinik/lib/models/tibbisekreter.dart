@@ -1,8 +1,6 @@
-
 import 'randevu.dart';
 
-
-class tıbbiSekreter {
+class TibbiSekreter {
   String? isim;
   String? soyisim;
   String? telno;
@@ -12,5 +10,4 @@ class tıbbiSekreter {
   randevuEkle(Randevu randevu) {
     randevular?.add(randevu);
   }
-  
 }
