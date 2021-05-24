@@ -14,6 +14,10 @@ class Admin extends Personel {
         .map((st) => st.docs.map((e) => Klinik.fromJson(e.data())).toList());
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> tumPersonelleriAl() {
+    return colRef.snapshots();
+  }
+
   personelEkle(Personel personel) {
     personeller.add(personel);
   }

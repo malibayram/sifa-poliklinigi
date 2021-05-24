@@ -1,16 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:poliklinik/models/admin.dart';
+
+import '../../models/personel.dart';
 
 class PersonelTab extends StatelessWidget {
-  final _colRef = FirebaseFirestore.instance.collection('kullanicilar');
-  String? email, sifre, personel;
+  final Admin admin;
+  const PersonelTab({Key? key, required this.admin}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final personel = Personel();
     return StreamBuilder<QuerySnapshot>(
-      stream: FirebaseFirestore.instance.collection('kullanicilar').snapshots(),
+      stream: admin.tumPersonelleriAl(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          List<DocumentSnapshot> kullanicilar = snapshot.data!.docs;
+          List<Personel> personeller = snapshot.data!.docs
+              .map((e) => Personel.fromJson((e.data() as Map)))
+              .toList();
+
           // ignore: unused_local_variable
           Size screenSize = MediaQuery.of(context).size;
 
@@ -24,17 +31,14 @@ class PersonelTab extends StatelessWidget {
                       child: ListView(
                         children: [
                           Divider(),
-                          for (DocumentSnapshot ds in kullanicilar)
+                          for (Personel prsnl in personeller)
                             Card(
                               child: ListTile(
-                                title:
-                                    Text("${(ds.data() as Map)['personel']}"),
+                                title: Text("${prsnl.email}"),
                                 trailing: IconButton(
                                   icon: Icon(Icons.delete),
                                   color: Colors.red,
-                                  onPressed: () {
-                                    _colRef.doc(ds.id).delete();
-                                  },
+                                  onPressed: prsnl.firebasedenSil,
                                 ),
                               ),
                             ),
@@ -58,7 +62,7 @@ class PersonelTab extends StatelessWidget {
                                 border: OutlineInputBorder(),
                                 labelText: "Personel:",
                               ),
-                              onChanged: (d) => personel = d,
+                              onChanged: (d) => personel.personel = d,
                             ),
                             SizedBox(height: 8),
                             TextField(
@@ -66,7 +70,7 @@ class PersonelTab extends StatelessWidget {
                                 border: OutlineInputBorder(),
                                 labelText: "Email:",
                               ),
-                              onChanged: (d) => email = d,
+                              onChanged: (d) => personel.email = d,
                             ),
                             SizedBox(height: 8),
                             TextField(
@@ -74,17 +78,11 @@ class PersonelTab extends StatelessWidget {
                                 border: OutlineInputBorder(),
                                 labelText: "Şifre:",
                               ),
-                              onChanged: (d) => sifre = d,
+                              onChanged: (d) => personel.sifre = d,
                             ),
                             SizedBox(height: 8),
                             OutlinedButton(
-                              onPressed: () {
-                                _colRef.add({
-                                  'Personel': personel,
-                                  'Email': email,
-                                  'Şifre': sifre,
-                                });
-                              },
+                              onPressed: personel.firebaseEkle,
                               child: Text("Ekle"),
                             ),
                           ],

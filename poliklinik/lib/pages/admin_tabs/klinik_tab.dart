@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:poliklinik/models/admin.dart';
 
@@ -6,7 +5,6 @@ import '../../models/klinik.dart';
 
 class KlinikTab extends StatelessWidget {
   final Admin admin;
-
   const KlinikTab({Key? key, required this.admin}) : super(key: key);
   @override
   Widget build(BuildContext context) {
