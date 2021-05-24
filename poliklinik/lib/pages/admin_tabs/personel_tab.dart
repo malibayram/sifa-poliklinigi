@@ -55,9 +55,33 @@ class PersonelTab extends StatelessWidget {
                           TextField(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "Personel:",
+                              labelText: "Personel Tipi:",
                             ),
                             onChanged: (d) => personel.personelTipi = d,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "İsim:",
+                            ),
+                            onChanged: (d) => personel.isim = d,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Soyisim:",
+                            ),
+                            onChanged: (d) => personel.soyisim = d,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Tel No:",
+                            ),
+                            onChanged: (d) => personel.telNo = d,
                           ),
                           SizedBox(height: 8),
                           TextField(
