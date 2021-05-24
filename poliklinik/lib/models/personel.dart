@@ -38,7 +38,7 @@ class Personel {
               'email': userCredential.user?.email,
               'sifre': sifre,
               'timestamp': FieldValue.serverTimestamp(),
-              'personelTipi': "admin",
+              'personelTipi': Personel,
             });
           }
 
@@ -73,7 +73,7 @@ class Personel {
 
   Map<String, dynamic> toJson() {
     return {
-      'personel-tipi': this.personelTipi,
+      'personelTipi': this.personelTipi,
       'email': this.email,
       'sifre': this.sifre,
       'isim': this.isim,
