@@ -20,7 +20,7 @@ class KayitGorevlisi extends StatelessWidget {
           ],
         ),
         body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 400, vertical: 40),
             child: Column(
               children: [
                 Center(),
@@ -30,21 +30,21 @@ class KayitGorevlisi extends StatelessWidget {
                     labelText: "Hastanın Kimlik Numarası",
                   ),
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 6),
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Hastanın Adı - Soyadı",
                   ),
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 6),
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     labelText: "Hastanın Telefon Numarası",
                   ),
                 ),
-                SizedBox(height: 8),
+                SizedBox(height: 6),
                 TextField(
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
