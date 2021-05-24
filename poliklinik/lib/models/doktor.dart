@@ -5,6 +5,11 @@ import 'personel.dart';
 import 'recete.dart';
 
 class Doktor extends Personel {
+  String? id;
+  String? isim;
+  String? soyisim;
+  String? telNo;
+
   List<Recete>? receteler;
   List<Islem>? islemler;
 
@@ -13,7 +18,10 @@ class Doktor extends Personel {
   Doktor();
 
   Doktor.fromJson(Map<String, dynamic>? json) {
+    this.id = json?['id'];
     this.isim = json?['isim'];
+    this.soyisim = json?['soyisim'];
+    this.telNo = json?['tel-no'];
   }
 
   receteEkle(Recete recete) {
