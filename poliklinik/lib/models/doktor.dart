@@ -14,6 +14,8 @@ class Doktor {
 
   final _doktorColRef = FirebaseFirestore.instance.collection('doktorlar');
 
+  Doktor();
+
   Doktor.fromJson(Map<String, dynamic>? json) {
     this.isim = json?['isim'];
   }
