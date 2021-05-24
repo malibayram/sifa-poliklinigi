@@ -9,7 +9,7 @@ class Hasta {
   String? adres;
   DateTime? dogumtarihi;
 
-  final _hastaColRef = FirebaseFirestore.instance.collection('hastalar');
+  final _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
 
   Hasta();
 
@@ -34,10 +34,16 @@ class Hasta {
   Future<void> receteEkle(Recete recete) async {}
 
   void firebaseEkle() {
-    _hastaColRef.doc(tcNo).set(toJson());
+    _colHastaRef.doc(tcNo).set(toJson());
   }
 
   void firebasedenSil() {
-    _hastaColRef.doc(tcNo).delete();
+    _colHastaRef.doc(tcNo).delete();
+  }
+
+  Stream<List<Hasta>> tumBilgileriniAl() {
+    return _colHastaRef.snapshots().map((st) => st.docs
+        .map((ds) => Hasta.fromJson({...ds.data(), 'tcNo': ds.id}))
+        .toList());
   }
 }
