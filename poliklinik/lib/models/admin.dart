@@ -16,9 +16,9 @@ class Admin extends Personel {
   }
 
   Stream<List<Personel>> tumPersonelleriAl() {
-    return _colPersonelRef
-        .snapshots()
-        .map((st) => st.docs.map((e) => Personel.fromJson(e.data())).toList());
+    return _colPersonelRef.snapshots().map((st) => st.docs
+        .map((ds) => Personel.fromJson({...ds.data(), 'id': ds.id}))
+        .toList());
   }
 
   personelEkle(Personel personel) {
