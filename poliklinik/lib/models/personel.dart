@@ -53,11 +53,19 @@ class Personel {
   Future<void> cikisYap() async {}
 
   Personel.fromJson(Map<String, dynamic>? json) {
+    this.personelTipi = json?['personelTipi'];
+    this.email = json?['email'];
+    this.sifre = json?['sifre'];
     this.isim = json?['isim'];
+    this.soyisim = json?['soyisim'];
+    this.telNo = json?['telNo'];
   }
 
   Map<String, dynamic> toJson() {
     return {
+      'personel-tipi': this.personelTipi,
+      'email': this.email,
+      'sifre': this.sifre,
       'isim': this.isim,
       'soyisim': this.soyisim,
       'tel-no': this.telNo,
