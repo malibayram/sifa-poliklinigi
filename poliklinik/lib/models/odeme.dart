@@ -8,6 +8,4 @@ class Odeme {
   String? tcNo;
   String? faturaNo;
   double? tutar;
-
 }
-
