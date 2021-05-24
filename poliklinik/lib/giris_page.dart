@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../models/personel.dart';
+import 'models/personel.dart';
 
 class GirisPage extends StatelessWidget {
   @override
