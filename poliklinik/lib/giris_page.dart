@@ -29,7 +29,7 @@ class GirisPage extends StatelessWidget {
                 border: OutlineInputBorder(),
                 labelText: "Şifre",
               ),
-              obscureText: false,
+              obscureText: true,
               onChanged: (d) => personel.sifre = d,
             ),
             SizedBox(height: 8),
