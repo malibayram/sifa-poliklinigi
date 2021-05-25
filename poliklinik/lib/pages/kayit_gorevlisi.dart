@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:poliklinik/models/hasta.dart';
 
 class KayitGorevlisi extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final hasta = Hasta();
+
     return StreamBuilder<List<Hasta>>(
         stream: hasta.tumBilgileriniAl(),
         builder: (context, snapshot) {
@@ -14,6 +17,18 @@ class KayitGorevlisi extends StatelessWidget {
 
             print(snapshot.data!);
             return Scaffold(
+              appBar: AppBar(
+                title: Text("Kayıt Görevlisi Sayfası"),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.exit_to_app),
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut().then(
+                          (value) => Hive.box('ayarlar').delete('personel'));
+                    },
+                  ),
+                ],
+              ),
               body: Row(
                 children: [
                   Expanded(
