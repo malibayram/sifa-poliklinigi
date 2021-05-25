@@ -21,20 +21,23 @@ class Doktor extends StatelessWidget {
                   flex: 2,
                   child: LayoutBuilder(
                     builder: (context, constraints) => Container(
-                      child: ListView(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 80, vertical: 40),
+                      child: Column(
                         children: [
-                          Divider(),
-                          for (Hasta hasta in snapshot.data!)
-                            Card(
-                              child: ListTile(
-                                title: Text("${hasta.tcNo}"),
-                                trailing: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  color: Colors.red,
-                                  onPressed: hasta.firebasedenSil,
-                                ),
-                              ),
+                          Center(),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Hasta Kimlik Numarası:",
                             ),
+                            onChanged: (d) => hasta.tcNo = d,
+                          ),
+                          SizedBox(height: 8),
+                          OutlinedButton(
+                            onPressed: hasta.firebaseEkle,
+                            child: Text("Sorgula"),
+                          ),
                         ],
                       ),
                     ),
@@ -58,10 +61,62 @@ class Doktor extends StatelessWidget {
                             onChanged: (d) => hasta.tcNo = d,
                           ),
                           SizedBox(height: 8),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Hastanın İsmi:",
+                            ),
+                            onChanged: (d) => hasta.tcNo = d,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Hastanın Soyismi:",
+                            ),
+                            onChanged: (d) => hasta.tcNo = d,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Hastanın Adresi:",
+                            ),
+                            onChanged: (d) => hasta.tcNo = d,
+                          ),
+                          SizedBox(height: 8),
+                          TextField(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Hastanın Doğum Tarihi:",
+                            ),
+                            onChanged: (d) => hasta.tcNo = d,
+                          ),
+                          SizedBox(height: 8),
                           OutlinedButton(
                             onPressed: hasta.firebaseEkle,
-                            child: Text("Sorgula"),
+                            child: Text("Güncelle"),
                           ),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                OutlinedButton(
+                                  onPressed: hasta.firebaseEkle,
+                                  child: Text("Reçete Ekle"),
+                                ),
+                                OutlinedButton(
+                                  onPressed: hasta.firebaseEkle,
+                                  child: Text("Rapor Ekle"),
+                                ),
+                                OutlinedButton(
+                                  onPressed: hasta.firebaseEkle,
+                                  child: Text("İşlem Ekle"),
+                                ),
+                                OutlinedButton(
+                                  onPressed: hasta.firebaseEkle,
+                                  child: Text("Tedavi Ekle"),
+                                ),
+                              ])
                         ],
                       ),
                     ),
