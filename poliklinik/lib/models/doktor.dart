@@ -24,14 +24,6 @@ class Doktor extends Personel {
     this.telNo = json?['tel-no'];
   }
 
-  receteEkle(Recete recete) {
-    receteler?.add(recete);
-  }
-
-  islemEkle(Islem islem) {
-    islemler?.add(islem);
-  }
-
   Map<String, dynamic> toJson() {
     return {
       'id': this.id,
