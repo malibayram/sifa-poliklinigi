@@ -1,5 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
+import 'package:hive/hive.dart';
 import 'package:poliklinik/models/hasta.dart';
 
 class Doktor extends StatelessWidget {
@@ -58,14 +59,8 @@ class Doktor extends StatelessWidget {
                           ),
                           SizedBox(height: 8),
                           OutlinedButton(
-                            onPressed: () {},
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                vertical: 8.0,
-                                horizontal: 16.0,
-                              ),
-                              child: Text("Sorgula"),
-                            ),
+                            onPressed: hasta.firebaseEkle,
+                            child: Text("Sorgula"),
                           ),
                         ],
                       ),
