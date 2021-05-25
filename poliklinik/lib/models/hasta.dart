@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:poliklinik/models/rapor.dart';
 
 import 'package:poliklinik/models/recete.dart';
+
+import 'islem.dart';
 
 class Hasta {
   String? isim;
@@ -32,6 +35,10 @@ class Hasta {
   }
 
   Future<void> receteEkle(Recete recete) async {}
+
+  Future<void> raporEkle(Rapor rapor) async {}
+
+  Future<void> islemEkle(Islem islem) async {}
 
   void firebaseEkle() {
     _colHastaRef.doc(tcNo).set(toJson());
