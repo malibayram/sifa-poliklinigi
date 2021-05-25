@@ -43,7 +43,7 @@ class Hasta {
 
   Stream<List<Hasta>> tumBilgileriniAl() {
     return _colHastaRef.snapshots().map((st) => st.docs
-        .map((ds) => Hasta.fromJson({...ds.data(), 'tcNo': ds.id}))
+        .map((ds) => Hasta.fromJson({...ds.data(), 'id': ds.id}))
         .toList());
   }
 }
