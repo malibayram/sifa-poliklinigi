@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:poliklinik/models/klinik.dart';
 
 import 'doktor.dart';
 import 'randevu.dart';
@@ -9,18 +10,25 @@ class TibbiSekreter {
   List<Doktor> doktorlar = [];
   List<Randevu> randevular = [];
   final _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
-  final _colDoktorRef = FirebaseFirestore.instance.collection('doktorlar');
-  final _colPersonelRef = FirebaseFirestore.instance.collection('randevular');
+  final _personelColRef = FirebaseFirestore.instance.collection('personeller');
+  final _colRandevuRef = FirebaseFirestore.instance.collection('randevular');
+  final _colKlinikRef = FirebaseFirestore.instance.collection('klinikler');
 
   Future<List<Randevu>> randevulariListele() async {
-    return (await _colPersonelRef.get())
+    return (await _colRandevuRef.get())
         .docs
         .map((ds) => Randevu.fromJson(ds.data()))
         .toList();
   }
 
+  Stream<List<Klinik>> tumKlinikiAl() {
+    return _colKlinikRef
+        .snapshots()
+        .map((st) => st.docs.map((e) => Klinik.fromJson(e.data())).toList());
+  }
+
   Stream<List<Doktor>> tumDoktorlariAl() {
-    return _colDoktorRef
+    return _personelColRef
         .snapshots()
         .map((st) => st.docs.map((e) => Doktor.fromJson(e.data())).toList());
   }
