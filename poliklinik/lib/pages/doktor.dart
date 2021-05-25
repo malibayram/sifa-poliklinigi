@@ -1,9 +1,106 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+
 import 'package:poliklinik/models/hasta.dart';
 
 class Doktor extends StatelessWidget {
+  TextEditingController _textFieldController = TextEditingController();
+
+  _tedaviDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Hastanın tedavisini ekleyiniz.'),
+            content: TextField(
+              controller: _textFieldController,
+              textInputAction: TextInputAction.go,
+              keyboardType: TextInputType.numberWithOptions(),
+              decoration: InputDecoration(hintText: "Tedavi Ekle"),
+            ),
+            actions: <Widget>[
+              new OutlinedButton(
+                child: new Text('Kaydet'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  _receteDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Hastanın reçete bilgisini ekleyiniz.'),
+            content: TextField(
+              controller: _textFieldController,
+              textInputAction: TextInputAction.go,
+              keyboardType: TextInputType.numberWithOptions(),
+              decoration: InputDecoration(hintText: "Reçete Ekle"),
+            ),
+            actions: <Widget>[
+              new OutlinedButton(
+                child: new Text('Kaydet'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  _raporDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Hastanın rapor bilgisini ekleyiniz.'),
+            content: TextField(
+              controller: _textFieldController,
+              textInputAction: TextInputAction.go,
+              keyboardType: TextInputType.numberWithOptions(),
+              decoration: InputDecoration(hintText: "Rapor Ekle"),
+            ),
+            actions: <Widget>[
+              new OutlinedButton(
+                child: new Text('Kaydet'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
+  _islemDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Hastanın işlem bilgisini ekleyiniz.'),
+            content: TextField(
+              controller: _textFieldController,
+              textInputAction: TextInputAction.go,
+              keyboardType: TextInputType.numberWithOptions(),
+              decoration: InputDecoration(hintText: "İşlem Ekle"),
+            ),
+            actions: <Widget>[
+              new OutlinedButton(
+                child: new Text('Kaydet'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final hasta = Hasta();
@@ -101,19 +198,19 @@ class Doktor extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: <Widget>[
                                 OutlinedButton(
-                                  onPressed: hasta.firebaseEkle,
+                                  onPressed: () => _receteDialog(context),
                                   child: Text("Reçete Ekle"),
                                 ),
                                 OutlinedButton(
-                                  onPressed: hasta.firebaseEkle,
+                                  onPressed: () => _raporDialog(context),
                                   child: Text("Rapor Ekle"),
                                 ),
                                 OutlinedButton(
-                                  onPressed: hasta.firebaseEkle,
+                                  onPressed: () => _islemDialog(context),
                                   child: Text("İşlem Ekle"),
                                 ),
                                 OutlinedButton(
-                                  onPressed: hasta.firebaseEkle,
+                                  onPressed: () => _tedaviDialog(context),
                                   child: Text("Tedavi Ekle"),
                                 ),
                               ])
