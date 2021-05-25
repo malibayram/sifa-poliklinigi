@@ -9,7 +9,7 @@ class Randevu {
   String? randevualinanklinik;
   String? randevualinandoktor;
 
-  final _randevuColRef = FirebaseFirestore.instance.collection('randevular');
+  final _colRandevuRef = FirebaseFirestore.instance.collection('randevular');
 
   Randevu();
 
