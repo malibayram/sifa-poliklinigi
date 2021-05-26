@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import 'package:poliklinik/models/hasta.dart';
 
+// ignore: must_be_immutable
 class Doktor extends StatelessWidget {
   TextEditingController _textFieldController = TextEditingController();
 
@@ -112,6 +115,18 @@ class Doktor extends StatelessWidget {
           Size screenSize = MediaQuery.of(context).size;
 
           return Scaffold(
+            appBar: AppBar(
+              title: Text("Doktor Sayfası"),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut().then(
+                        (value) => Hive.box('ayarlar').delete('personel'));
+                  },
+                ),
+              ],
+            ),
             body: Row(
               children: [
                 Expanded(
