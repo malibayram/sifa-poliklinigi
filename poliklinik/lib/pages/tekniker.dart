@@ -20,7 +20,7 @@ class Tekniker extends StatelessWidget {
           ],
         ),
         body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 40),
+            padding: const EdgeInsets.symmetric(horizontal: 80, vertical: 40),
             child: Column(
               children: [
                 Center(),
@@ -41,26 +41,24 @@ class Tekniker extends StatelessWidget {
                     child: Text("Sorgula"),
                   ),
                 ),
-                OutlinedButton(
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8.0,
-                      horizontal: 16.0,
-                    ),
-                    child: Text("Röntgen Bilgisi Ekle"),
-                  ),
-                ),
-                OutlinedButton(
-                  onPressed: () {},
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 8.0,
-                      horizontal: 16.0,
-                    ),
-                    child: Text("Tahlil Bilgisi Ekle"),
-                  ),
-                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      OutlinedButton(
+                        onPressed: () {},
+                        child: Text("Tahlil Bilgisi Ekle"),
+                      ),
+                      OutlinedButton(
+                        onPressed: () {},
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 8.0,
+                            horizontal: 16.0,
+                          ),
+                          child: Text("Röntgen Bilgisi Ekle"),
+                        ),
+                      ),
+                    ])
               ],
             )));
   }
