@@ -3,19 +3,28 @@ import 'package:flutter/material.dart';
 import '../../models/admin.dart';
 import '../../models/personel.dart';
 
-class PersonelTab extends StatelessWidget {
+class PersonelTab extends StatefulWidget {
   final Admin admin;
   const PersonelTab({Key? key, required this.admin}) : super(key: key);
   @override
+  _PersonelTabState createState() => _PersonelTabState();
+}
+
+class _PersonelTabState extends State<PersonelTab> {
+  var personel = Personel();
+  @override
   Widget build(BuildContext context) {
-    final personel = Personel();
+    final isimCtrl = TextEditingController(text: personel.isim);
+    final soyIsimCtrl = TextEditingController(text: personel.soyisim);
+    final emailCtrl = TextEditingController(text: personel.email);
+    final sifreCtrl = TextEditingController(text: personel.sifre);
+    final tipiCtrl = TextEditingController(text: personel.personelTipi);
+    final telNoCtrl = TextEditingController(text: personel.telNo);
+
     return StreamBuilder<List<Personel>>(
-      stream: admin.tumPersonelleriAl(),
+      stream: widget.admin.tumPersonelleriAl(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          // ignore: unused_local_variable
-          Size screenSize = MediaQuery.of(context).size;
-
           return Scaffold(
             body: Row(
               children: [
@@ -27,18 +36,33 @@ class PersonelTab extends StatelessWidget {
                       for (Personel prsnl in snapshot.data!)
                         Card(
                           child: ListTile(
-                            title: Text("${prsnl.email}"),
+                            title: Text("${prsnl.personelTipi}"),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Telefon: ${prsnl.telNo}"),
+                                Text("Email: ${prsnl.email}"),
                                 Text("Şifre: ${prsnl.sifre}"),
                               ],
                             ),
-                            trailing: IconButton(
-                              icon: Icon(Icons.delete),
-                              color: Colors.red,
-                              onPressed: prsnl.firebasedenSil,
+                            trailing: SizedBox(
+                              width: 80,
+                              child: Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.edit),
+                                    color: Colors.green,
+                                    onPressed: () {
+                                      personel = prsnl;
+                                      setState(() {});
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    color: Colors.red,
+                                    onPressed: prsnl.firebasedenSil,
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -55,6 +79,7 @@ class PersonelTab extends StatelessWidget {
                       children: [
                         Center(),
                         TextField(
+                          controller: tipiCtrl,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Personel Tipi:",
@@ -63,6 +88,7 @@ class PersonelTab extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: isimCtrl,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "İsim:",
@@ -71,6 +97,7 @@ class PersonelTab extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: soyIsimCtrl,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Soyisim:",
@@ -79,6 +106,7 @@ class PersonelTab extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: telNoCtrl,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Tel No:",
@@ -87,6 +115,7 @@ class PersonelTab extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: emailCtrl,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Email:",
@@ -95,6 +124,7 @@ class PersonelTab extends StatelessWidget {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: sifreCtrl,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: "Şifre:",
