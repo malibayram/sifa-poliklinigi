@@ -50,7 +50,7 @@ class Hasta {
     _colHastaRef.doc(tcNo).delete();
   }
 
-  Stream<List<Hasta>> tumBilgileriniAl() {
+  Stream<List<Hasta>> tumHastalariGetir() {
     return _colHastaRef.snapshots().map((st) => st.docs
         .map((ds) => Hasta.fromJson({...ds.data(), 'id': ds.id}))
         .toList());
