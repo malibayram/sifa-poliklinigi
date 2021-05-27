@@ -4,9 +4,8 @@ import 'package:hive/hive.dart';
 
 import 'package:poliklinik/models/hasta.dart';
 
-// ignore: must_be_immutable
-class Doktor extends StatelessWidget {
-  TextEditingController _textFieldController = TextEditingController();
+class DoktorPage extends StatelessWidget {
+  final TextEditingController _textFieldController = TextEditingController();
 
   _tedaviDialog(BuildContext context) async {
     return showDialog(

@@ -1,19 +1,11 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:poliklinik/models/randevu.dart';
 
-import 'islem.dart';
+import 'hasta.dart';
 import 'personel.dart';
-import 'recete.dart';
 
 class Doktor extends Personel {
-  String? id;
-  String? isim;
-  String? soyisim;
-  String? telNo;
-
-  List<Recete>? receteler;
-  List<Islem>? islemler;
-
-  final _personelColRef = FirebaseFirestore.instance.collection('personeller');
+  List<Hasta> hastalar = [];
+  List<Randevu> randevular = [];
 
   Doktor();
 
@@ -24,12 +16,10 @@ class Doktor extends Personel {
     this.telNo = json?['tel-no'];
   }
 
-  Map<String, dynamic> toJson() {
+  Map<String, dynamic> doktorToJson() {
     return {
-      'id': this.id,
-      'isim': this.isim,
-      'soyisim': this.soyisim,
-      'tel-no': this.telNo,
+      ...this.toJson(),
+      'hastalar': hastalar.map((e) => e.tcNo).toList(),
     };
   }
 }

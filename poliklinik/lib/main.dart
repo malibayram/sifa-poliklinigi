@@ -6,8 +6,8 @@ import 'package:hive_listener/hive_listener.dart';
 
 import 'giris_page.dart';
 import 'pages/admin_page.dart';
-import 'pages/doktor.dart';
-import 'pages/tibbi_sekreter.dart';
+import 'pages/doktor_page.dart';
+import 'pages/tibbi_sekreter_page.dart';
 import 'pages/kayit_gorevlisi.dart';
 import 'pages/tekniker.dart';
 import 'pages/veznedar.dart';
@@ -48,11 +48,11 @@ class MyApp extends StatelessWidget {
                   Widget page;
                   switch (box.get('personel')) {
                     case "tibbi-sekreter":
-                      page = TibbiSekreter();
+                      page = TibbiSekreterPage();
                       break;
 
                     case "doktor":
-                      page = Doktor();
+                      page = DoktorPage();
                       break;
 
                     case "admin":

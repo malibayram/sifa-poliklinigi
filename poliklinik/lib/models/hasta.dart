@@ -4,6 +4,7 @@ import 'package:poliklinik/models/rapor.dart';
 import 'package:poliklinik/models/recete.dart';
 
 import 'islem.dart';
+import 'randevu.dart';
 
 class Hasta {
   String? isim;
@@ -11,12 +12,13 @@ class Hasta {
   String? tcNo;
   String? adres;
   DateTime? dogumtarihi;
+  List<Randevu> randevular = [];
 
   final _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
 
   Hasta();
 
-  Hasta.fromJson(Map json) {
+  Hasta.fromJson(Map<String, dynamic> json) {
     isim = json['isim'];
     soyisim = json['soyisim'];
     tcNo = json['tcNo'];

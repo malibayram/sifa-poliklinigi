@@ -18,12 +18,15 @@ class Klinik {
     adi = json['adi'];
     telNo = json['tel-no'];
 
-    final doktorColRef = FirebaseFirestore.instance.collection('doktorlar');
+    final doktorColRef = FirebaseFirestore.instance.collection('personeller');
 
     for (String dId in json['doktorlar']) {
       if (doktorlar.value.where((e) => e.id == dId).length == 0) {
         doktorColRef.doc(dId).get().then((value) {
-          doktorlar.value = [...doktorlar.value, Doktor.fromJson(value.data())];
+          doktorlar.value = [
+            ...doktorlar.value,
+            Doktor.fromJson({...(value.data() as Map), 'id': dId})
+          ];
         });
       }
     }
@@ -39,11 +42,11 @@ class Klinik {
   }
 
   Future<void> doktorEkle(Doktor doktor) async {
-    await doktor.firebaseEkle();
+    String dID = await doktor.firebaseEkle();
 
     doktorlar.value = [...doktorlar.value, doktor];
     await _klinikColRef.doc(id).update({
-      'doktorlar': FieldValue.arrayUnion([doktor.id])
+      'doktorlar': FieldValue.arrayUnion([dID])
     });
   }
 
@@ -58,8 +61,8 @@ class Klinik {
     });
   }
 
-  void firebaseEkle() {
-    _klinikColRef.doc(id).set(toJson());
+  Future<void> firebaseEkle() async {
+    await _klinikColRef.doc(id).set(toJson());
   }
 
   void firebasedenSil() {

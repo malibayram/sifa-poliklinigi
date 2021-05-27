@@ -82,10 +82,12 @@ class Personel {
     };
   }
 
-  Future<void> firebaseEkle() async {
+  Future<String> firebaseEkle() async {
     final userCredential = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email!, password: sifre!);
+
     await _personelColRef.doc(userCredential.user!.uid).set(this.toJson());
+    return userCredential.user!.uid;
   }
 
   Future<void> firebasedenSil() async {
