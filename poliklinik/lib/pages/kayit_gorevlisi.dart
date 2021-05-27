@@ -3,10 +3,36 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:poliklinik/models/hasta.dart';
 
-class KayitGorevlisi extends StatelessWidget {
+class KayitGorevlisi extends StatefulWidget {
+  @override
+  _KayitGorevlisiState createState() => _KayitGorevlisiState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Kayıt Görevlisi Sayfası"),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.exit_to_app),
+            onPressed: () {
+              FirebaseAuth.instance.signOut().then(
+                    (value) => Hive.box('ayarlar').delete('personel'),
+                  );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _KayitGorevlisiState extends State<KayitGorevlisi> {
+  var hasta = Hasta();
   @override
   Widget build(BuildContext context) {
-    var hasta = Hasta();
+    final tcNoCtrl = TextEditingController(text: hasta.tcNo);
+    final isimCtrl = TextEditingController(text: hasta.isim);
+    final sIsimCtrl = TextEditingController(text: hasta.soyisim);
+    final adresCtrl = TextEditingController(text: hasta.adres);
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +55,7 @@ class KayitGorevlisi extends StatelessWidget {
             child: LayoutBuilder(
               builder: (context, constraints) => Container(
                 child: StreamBuilder<List<Hasta>>(
-                  stream: hasta.tumBilgileriniAl(),
+                  stream: hasta.tumHastalariGetir(),
                   builder: (context, snapshot) {
                     if (snapshot.hasData)
                       return ListView(
@@ -40,9 +66,12 @@ class KayitGorevlisi extends StatelessWidget {
                               child: ListTile(
                                 title: Text("${hst.tcNo}"),
                                 trailing: IconButton(
-                                  icon: Icon(Icons.delete),
-                                  color: Colors.red,
-                                  onPressed: hst.firebasedenSil,
+                                  icon: Icon(Icons.edit),
+                                  color: Colors.green,
+                                  onPressed: () {
+                                    hasta = hasta;
+                                    setState(() {});
+                                  },
                                 ),
                               ),
                             ),
@@ -68,6 +97,7 @@ class KayitGorevlisi extends StatelessWidget {
                   children: [
                     Center(),
                     TextField(
+                      controller: tcNoCtrl,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Hasta TC NO:",
@@ -76,6 +106,7 @@ class KayitGorevlisi extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     TextField(
+                      controller: isimCtrl,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Hastanın İsimi:",
@@ -84,6 +115,7 @@ class KayitGorevlisi extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     TextField(
+                      controller: sIsimCtrl,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Hastanın Soyisimi:",
@@ -92,9 +124,10 @@ class KayitGorevlisi extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     TextField(
+                      controller: adresCtrl,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
-                        labelText: "Klinik Adresi:",
+                        labelText: "Hastanın Adresi:",
                       ),
                       onChanged: (d) => hasta.adres = d,
                     ),
@@ -105,7 +138,7 @@ class KayitGorevlisi extends StatelessWidget {
                         labelText: "Hastanın Doğum Tarihi:",
                       ),
                       keyboardType: TextInputType.datetime,
-                      //   onChanged: (d) => hasta.dogumtarihi= d,
+                      //  onChanged: (d) => hasta.dogumtarihi= d,
                     ),
                     SizedBox(height: 8),
                     OutlinedButton(
