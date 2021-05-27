@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:poliklinik/models/hasta.dart';
 
+// ignore: must_be_immutable
 class TibbiSekreter extends StatelessWidget {
+  List<DropdownMenuItem<int>> klinikList = [];
+
   tarihSec(BuildContext context) {
     showDatePicker(
       context: context,
@@ -58,7 +61,7 @@ class TibbiSekreter extends StatelessWidget {
                             ),
                             SizedBox(height: 8),
                             OutlinedButton(
-                              onPressed: hasta.firebaseEkle,
+                              onPressed: () {},
                               child: Text("Sorgula"),
                             ),
                           ],
