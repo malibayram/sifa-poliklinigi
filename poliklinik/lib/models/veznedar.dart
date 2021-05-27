@@ -1,10 +1,10 @@
 import 'odeme.dart';
 
-class veznedar {
+class Veznedar {
   String? isim;
   String? soyisim;
   String? telNo;
-  
+
   List<Odeme>? odemeler;
 
   odemeAl(Odeme odeme) {

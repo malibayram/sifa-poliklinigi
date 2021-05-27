@@ -5,9 +5,18 @@ import 'klinik.dart';
 import 'randevu.dart';
 
 class TibbiSekreter {
+<<<<<<< HEAD
   List<Klinik> klinikler = [];
 
   final _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
+=======
+  List<Hasta> hastalar = [];
+  List<Doktor> doktorlar = [];
+  List<Randevu> randevular = [];
+  //final _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
+  final _personelColRef = FirebaseFirestore.instance.collection('personeller');
+  final _colRandevuRef = FirebaseFirestore.instance.collection('randevular');
+>>>>>>> 95bfc6c5f3e7fc17a348a8b81e8e5d8f84bf8c36
   final _colKlinikRef = FirebaseFirestore.instance.collection('klinikler');
 
   Future<Hasta> hastaSorgula(String tcNo) async {

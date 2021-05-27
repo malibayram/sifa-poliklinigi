@@ -1,4 +1,4 @@
-import 'islem.dart';
+//import 'islem.dart';
 
 class Odeme {
   DateTime? odemetarihi;
