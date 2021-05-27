@@ -1,4 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'islem.dart';
 import 'personel.dart';
@@ -13,7 +13,7 @@ class Doktor extends Personel {
   List<Recete>? receteler;
   List<Islem>? islemler;
 
-  final _personelColRef = FirebaseFirestore.instance.collection('personeller');
+  //final _personelColRef = FirebaseFirestore.instance.collection('personeller');
 
   Doktor();
 
