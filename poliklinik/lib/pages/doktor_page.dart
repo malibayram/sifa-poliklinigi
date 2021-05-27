@@ -135,6 +135,12 @@ class _DoktorPageState extends State<DoktorPage> {
 
   @override
   Widget build(BuildContext context) {
+    var hasta = Hasta();
+    final tcNoCtrl = TextEditingController(text: hasta.tcNo);
+    final isimCtrl = TextEditingController(text: hasta.isim);
+    final sIsimCtrl = TextEditingController(text: hasta.soyisim);
+    final adresCtrl = TextEditingController(text: hasta.adres);
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Doktor Sayfası"),
@@ -164,9 +170,12 @@ class _DoktorPageState extends State<DoktorPage> {
                         title: Text("${hst.tcNo}"),
                         subtitle: Text("${hst.isim} ${hst.soyisim}"),
                         trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Colors.red,
-                          onPressed: hst.firebasedenSil,
+                          icon: Icon(Icons.edit),
+                          color: Colors.green,
+                          onPressed: () {
+                            hasta = hasta;
+                            setState(() {});
+                          },
                         ),
                       ),
                     ),
@@ -185,6 +194,7 @@ class _DoktorPageState extends State<DoktorPage> {
                   children: [
                     Center(),
                     TextField(
+                      controller: tcNoCtrl,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Hasta Kimlik Numarası:",
@@ -193,27 +203,30 @@ class _DoktorPageState extends State<DoktorPage> {
                     ),
                     SizedBox(height: 8),
                     TextField(
+                      controller: isimCtrl,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Hastanın İsmi:",
                       ),
-                      onChanged: (d) => _hasta.tcNo = d,
+                      onChanged: (d) => _hasta.isim = d,
                     ),
                     SizedBox(height: 8),
                     TextField(
+                      controller: sIsimCtrl,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Hastanın Soyismi:",
                       ),
-                      onChanged: (d) => _hasta.tcNo = d,
+                      onChanged: (d) => _hasta.soyisim = d,
                     ),
                     SizedBox(height: 8),
                     TextField(
+                      controller: adresCtrl,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         labelText: "Hastanın Adresi:",
                       ),
-                      onChanged: (d) => _hasta.tcNo = d,
+                      onChanged: (d) => _hasta.adres = d,
                     ),
                     SizedBox(height: 8),
                     TextField(
@@ -221,7 +234,8 @@ class _DoktorPageState extends State<DoktorPage> {
                         border: OutlineInputBorder(),
                         labelText: "Hastanın Doğum Tarihi:",
                       ),
-                      onChanged: (d) => _hasta.tcNo = d,
+                      keyboardType: TextInputType.datetime,
+                      // onChanged: (d) => _hasta.dogumtarihi = d,
                     ),
                     SizedBox(height: 8),
                     OutlinedButton(
