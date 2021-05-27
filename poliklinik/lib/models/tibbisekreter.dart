@@ -9,7 +9,7 @@ class TibbiSekreter {
   List<Hasta> hastalar = [];
   List<Doktor> doktorlar = [];
   List<Randevu> randevular = [];
-  final _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
+  //final _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
   final _personelColRef = FirebaseFirestore.instance.collection('personeller');
   final _colRandevuRef = FirebaseFirestore.instance.collection('randevular');
   final _colKlinikRef = FirebaseFirestore.instance.collection('klinikler');
