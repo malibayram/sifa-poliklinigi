@@ -1,18 +1,11 @@
-<<<<<<< HEAD
 import 'package:cloud_firestore/cloud_firestore.dart';
-=======
-//import 'package:cloud_firestore/cloud_firestore.dart';
-//import 'package:poliklinik/models/hasta.dart';
-
-//import 'hasta.dart';
->>>>>>> 95bfc6c5f3e7fc17a348a8b81e8e5d8f84bf8c36
 
 class Randevu {
   DateTime? saat;
   String? hasta;
   String? doktor;
 
-  //final _colRandevuRef = FirebaseFirestore.instance.collection('randevular');
+  final _colRandevuRef = FirebaseFirestore.instance.collection('randevular');
 
   Randevu();
 
