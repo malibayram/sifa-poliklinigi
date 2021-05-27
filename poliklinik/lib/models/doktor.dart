@@ -14,6 +14,8 @@ class Doktor extends Personel {
     this.isim = json?['isim'];
     this.soyisim = json?['soyisim'];
     this.telNo = json?['tel-no'];
+    this.email = json?['email'];
+    this.sifre = json?['sifre'];
   }
 
   Map<String, dynamic> doktorToJson() {
