@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:poliklinik/models/hasta.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:poliklinik/models/hasta.dart';
 
-import 'hasta.dart';
+//import 'hasta.dart';
 
 class Randevu {
   DateTime? randevuSaati;
@@ -9,7 +9,7 @@ class Randevu {
   String? randevualinanklinik;
   String? randevualinandoktor;
 
-  final _colRandevuRef = FirebaseFirestore.instance.collection('randevular');
+  //final _colRandevuRef = FirebaseFirestore.instance.collection('randevular');
 
   Randevu();
 
