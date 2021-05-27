@@ -34,6 +34,7 @@ class Personel {
             this.id = ds.id;
             this.personelTipi = p.personelTipi;
             Hive.box('ayarlar').put('personel', p.personelTipi);
+            Hive.box('ayarlar').put('personel-id', ds.id);
           } else {
             _personelColRef.doc(userCredential.user?.uid).set({
               'email': userCredential.user?.email,

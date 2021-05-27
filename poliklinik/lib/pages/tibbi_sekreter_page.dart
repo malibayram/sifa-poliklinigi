@@ -152,11 +152,11 @@ class _TibbiSekreterPageState extends State<TibbiSekreterPage> {
                               _randevu = null;
                               _randevular = [];
                               _doktorRandevular = [];
-                              Randevu()
-                                ..doktorRandevulariniAl(v!.id!).then((value) {
-                                  _doktorRandevular = value;
-                                  setState(() {});
-                                });
+                              Randevu.doktorRandevulariniAl(v!.id!)
+                                  .then((value) {
+                                _doktorRandevular = value;
+                                setState(() {});
+                              });
 
                               setState(() {});
                             },

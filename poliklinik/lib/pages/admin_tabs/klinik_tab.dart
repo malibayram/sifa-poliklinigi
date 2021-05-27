@@ -26,8 +26,6 @@ class _KlinikTabState extends State<KlinikTab> {
       stream: widget.admin.tumKlinikleriAl(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          Size screenSize = MediaQuery.of(context).size;
-
           return Scaffold(
             body: Row(
               children: [

@@ -5,7 +5,8 @@ class Randevu {
   String? hasta;
   String? doktor;
 
-  final _colRandevuRef = FirebaseFirestore.instance.collection('randevular');
+  static final _colRandevuRef =
+      FirebaseFirestore.instance.collection('randevular');
 
   Randevu();
 
@@ -29,7 +30,7 @@ class Randevu {
     if (this.saat != null) await _colRandevuRef.add(this.toJson());
   }
 
-  Future<List<Randevu>> doktorRandevulariniAl(String doktorId) async {
+  static Future<List<Randevu>> doktorRandevulariniAl(String doktorId) async {
     return (await _colRandevuRef.where('doktor', isEqualTo: doktorId).get())
         .docs
         .map((e) => Randevu.fromJson(e.data()))
