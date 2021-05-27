@@ -69,7 +69,7 @@ class Personel {
     this.sifre = json?['sifre'];
     this.isim = json?['isim'];
     this.soyisim = json?['soyisim'];
-    this.telNo = json?['telNo'];
+    this.telNo = json?['tel-no'];
   }
 
   Map<String, dynamic> toJson() {
