@@ -6,23 +6,6 @@ import 'package:poliklinik/models/hasta.dart';
 class KayitGorevlisi extends StatefulWidget {
   @override
   _KayitGorevlisiState createState() => _KayitGorevlisiState();
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Kayıt Görevlisi Sayfası"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-              FirebaseAuth.instance.signOut().then(
-                    (value) => Hive.box('ayarlar').delete('personel'),
-                  );
-            },
-          ),
-        ],
-      ),
-    );
-  }
 }
 
 class _KayitGorevlisiState extends State<KayitGorevlisi> {
