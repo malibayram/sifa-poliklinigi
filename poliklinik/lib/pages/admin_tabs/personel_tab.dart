@@ -133,7 +133,15 @@ class _PersonelTabState extends State<PersonelTab> {
                         ),
                         SizedBox(height: 8),
                         OutlinedButton(
-                          onPressed: personel.firebaseEkle,
+                          onPressed: () async {
+                            await personel.firebaseEkle();
+                            tipiCtrl.clear();
+                            isimCtrl.clear();
+                            soyIsimCtrl.clear();
+                            emailCtrl.clear();
+                            sifreCtrl.clear();
+                            telNoCtrl.clear();
+                          },
                           child: Text("Ekle"),
                         ),
                       ],
