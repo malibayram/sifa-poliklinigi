@@ -91,6 +91,10 @@ class Personel {
     return userCredential.user!.uid;
   }
 
+  Future<void> guncelle() async {
+    await _personelColRef.doc(id).set(this.toJson());
+  }
+
   Future<void> firebasedenSil() async {
     if (personelTipi != 'admin')
       await _personelColRef.doc(this.id).delete();
