@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:poliklinik/models/rapor.dart';
 
 import 'package:poliklinik/models/recete.dart';
@@ -42,8 +43,8 @@ class Hasta {
 
   Future<void> islemEkle(Islem islem) async {}
 
-  void firebaseEkle() {
-    _colHastaRef.doc(tcNo).set(toJson());
+  Future<void> firebaseEkle() async {
+    await _colHastaRef.doc(tcNo).set(toJson());
   }
 
   void firebasedenSil() {
@@ -51,8 +52,8 @@ class Hasta {
   }
 
   Stream<List<Hasta>> tumHastalariGetir() {
-    return _colHastaRef.snapshots().map((st) => st.docs
-        .map((ds) => Hasta.fromJson({...ds.data(), 'id': ds.id}))
-        .toList());
+    return _colHastaRef
+        .snapshots()
+        .map((st) => st.docs.map((e) => Hasta.fromJson(e.data())).toList());
   }
 }
