@@ -134,7 +134,10 @@ class _PersonelTabState extends State<PersonelTab> {
                         SizedBox(height: 8),
                         OutlinedButton(
                           onPressed: () async {
-                            await personel.firebaseEkle();
+                            if (personel.id != null)
+                              await personel.guncelle();
+                            else
+                              await personel.firebaseEkle();
                             tipiCtrl.clear();
                             isimCtrl.clear();
                             soyIsimCtrl.clear();
@@ -142,7 +145,8 @@ class _PersonelTabState extends State<PersonelTab> {
                             sifreCtrl.clear();
                             telNoCtrl.clear();
                           },
-                          child: Text("Ekle"),
+                          child:
+                              Text(personel.id != null ? "Güncelle" : "Ekle"),
                         ),
                       ],
                     ),
