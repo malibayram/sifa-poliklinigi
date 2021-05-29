@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:poliklinik/models/randevu.dart';
 
 import 'hasta.dart';
@@ -6,6 +7,8 @@ import 'personel.dart';
 class Doktor extends Personel {
   List<Hasta> hastalar = [];
   List<Randevu> randevular = [];
+
+  final _personelColRef = FirebaseFirestore.instance.collection('personeller');
 
   Doktor();
 
@@ -23,5 +26,9 @@ class Doktor extends Personel {
       ...this.toJson(),
       'hastalar': hastalar.map((e) => e.tcNo).toList(),
     };
+  }
+
+  Future<void> guncelle() async {
+    await _personelColRef.doc(id).set(this.toJson());
   }
 }
