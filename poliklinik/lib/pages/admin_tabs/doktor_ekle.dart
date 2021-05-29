@@ -127,12 +127,30 @@ class _DoktorEkleState extends State<DoktorEkle> {
                     onChanged: (d) => doktor.sifre = d,
                   ),
                   SizedBox(height: 8),
-                  OutlinedButton(
-                    onPressed: () => widget.klinik
-                        .doktorEkle(doktor)
-                        .whenComplete(() => setState(() {})),
-                    child: Text("Ekle"),
-                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        OutlinedButton(
+                          onPressed: () => widget.klinik
+                              .doktorEkle(doktor)
+                              .whenComplete(() => setState(() {})),
+                          child: Text("Ekle"),
+                        ),
+                        SizedBox(height: 8),
+                        OutlinedButton(
+                          onPressed: () async {
+                            if (doktor.id != null)
+                              await doktor.guncelle();
+                            else
+                              isimCtrl.clear();
+                            soyIsimCtrl.clear();
+                            emailCtrl.clear();
+                            sifreCtrl.clear();
+                            telNoCtrl.clear();
+                          },
+                          child: Text("Güncelle"),
+                        ),
+                      ])
                 ],
               ),
             ),
