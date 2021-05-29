@@ -11,6 +11,15 @@ class KayitGorevlisi extends StatefulWidget {
 
 class _KayitGorevlisiState extends State<KayitGorevlisi> {
   var hasta = Hasta();
+  tarihSec(BuildContext context) {
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2100));
+  }
+
+  TextEditingController dateCtl = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final tcNoCtrl = TextEditingController(text: hasta.tcNo);
@@ -112,12 +121,16 @@ class _KayitGorevlisiState extends State<KayitGorevlisi> {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: dateCtl,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: "Hastanın Doğum Tarihi:",
+                            labelText: "Hastanın Doğum Tarihi",
                           ),
+                          onTap: () async {
+                            tarihSec(context);
+                            setState(() {});
+                          },
                           keyboardType: TextInputType.datetime,
-                          //  onChanged: (d) => hasta.dogumtarihi= d,
                         ),
                         SizedBox(height: 8),
                         OutlinedButton(
