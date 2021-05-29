@@ -17,7 +17,15 @@ class _DoktorPageState extends State<DoktorPage> {
   final _doktor = Doktor()..id = Hive.box('ayarlar').get('personel-id');
   List<Hasta> _hastalar = [];
   Hasta _hasta = Hasta();
+  tarihSec(BuildContext context) {
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2100));
+  }
 
+  TextEditingController dateCtl = TextEditingController();
   _tedaviDialog(BuildContext context) async {
     return showDialog(
         context: context,
@@ -233,12 +241,16 @@ class _DoktorPageState extends State<DoktorPage> {
                         ),
                         SizedBox(height: 8),
                         TextField(
+                          controller: dateCtl,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
-                            labelText: "Hastanın Doğum Tarihi:",
+                            labelText: "Hastanın Doğum Tarihi",
                           ),
+                          onTap: () async {
+                            tarihSec(context);
+                            setState(() {});
+                          },
                           keyboardType: TextInputType.datetime,
-                          // onChanged: (d) => _hasta.dogumtarihi = d,
                         ),
                         SizedBox(height: 8),
                         OutlinedButton(
