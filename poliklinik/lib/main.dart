@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
                       break;
 
                     case "veznedar":
-                      page = Veznedar();
+                      page = VeznedarPage();
                       break;
 
                     case "tekniker":
