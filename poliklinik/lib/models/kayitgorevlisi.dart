@@ -9,8 +9,4 @@ class KayitGorevlisi {
   hastaEkle(Hasta hasta) {
     hastalar?.add(hasta);
   }
-
-  hastaSil(Hasta hasta) {
-    hastalar?.add(hasta);
-  }
 }

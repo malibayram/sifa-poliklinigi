@@ -15,6 +15,11 @@ class _DoktorEkleState extends State<DoktorEkle> {
 
   @override
   Widget build(BuildContext context) {
+    final isimCtrl = TextEditingController(text: doktor.isim);
+    final soyIsimCtrl = TextEditingController(text: doktor.soyisim);
+    final emailCtrl = TextEditingController(text: doktor.email);
+    final sifreCtrl = TextEditingController(text: doktor.sifre);
+    final telNoCtrl = TextEditingController(text: doktor.telNo);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.klinik.adi!),
@@ -78,6 +83,7 @@ class _DoktorEkleState extends State<DoktorEkle> {
                   Divider(),
                   Center(),
                   TextField(
+                    controller: isimCtrl,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "İsim:",
@@ -86,6 +92,7 @@ class _DoktorEkleState extends State<DoktorEkle> {
                   ),
                   SizedBox(height: 8),
                   TextField(
+                    controller: soyIsimCtrl,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Soyisim:",
@@ -94,6 +101,7 @@ class _DoktorEkleState extends State<DoktorEkle> {
                   ),
                   SizedBox(height: 8),
                   TextField(
+                    controller: telNoCtrl,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Tel No:",
@@ -102,6 +110,7 @@ class _DoktorEkleState extends State<DoktorEkle> {
                   ),
                   SizedBox(height: 8),
                   TextField(
+                    controller: emailCtrl,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Email:",
@@ -110,6 +119,7 @@ class _DoktorEkleState extends State<DoktorEkle> {
                   ),
                   SizedBox(height: 8),
                   TextField(
+                    controller: sifreCtrl,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
                       labelText: "Şifre:",
@@ -117,12 +127,30 @@ class _DoktorEkleState extends State<DoktorEkle> {
                     onChanged: (d) => doktor.sifre = d,
                   ),
                   SizedBox(height: 8),
-                  OutlinedButton(
-                    onPressed: () => widget.klinik
-                        .doktorEkle(doktor)
-                        .whenComplete(() => setState(() {})),
-                    child: Text("Ekle"),
-                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        OutlinedButton(
+                          onPressed: () => widget.klinik
+                              .doktorEkle(doktor)
+                              .whenComplete(() => setState(() {})),
+                          child: Text("Ekle"),
+                        ),
+                        SizedBox(height: 8),
+                        OutlinedButton(
+                          onPressed: () async {
+                            if (doktor.id != null)
+                              await doktor.guncelle();
+                            else
+                              isimCtrl.clear();
+                            soyIsimCtrl.clear();
+                            emailCtrl.clear();
+                            sifreCtrl.clear();
+                            telNoCtrl.clear();
+                          },
+                          child: Text("Güncelle"),
+                        ),
+                      ])
                 ],
               ),
             ),

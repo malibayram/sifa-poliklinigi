@@ -7,6 +7,7 @@ import 'package:poliklinik/models/hasta.dart';
 import 'package:poliklinik/models/randevu.dart';
 
 class DoktorPage extends StatefulWidget {
+  final hasta = Hasta();
   @override
   _DoktorPageState createState() => _DoktorPageState();
 }
@@ -16,7 +17,15 @@ class _DoktorPageState extends State<DoktorPage> {
   final _doktor = Doktor()..id = Hive.box('ayarlar').get('personel-id');
   List<Hasta> _hastalar = [];
   Hasta _hasta = Hasta();
+  tarihSec(BuildContext context) {
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime(1900),
+        lastDate: DateTime(2100));
+  }
 
+  TextEditingController dateCtl = TextEditingController();
   _tedaviDialog(BuildContext context) async {
     return showDialog(
         context: context,
@@ -133,129 +142,158 @@ class _DoktorPageState extends State<DoktorPage> {
     super.initState();
   }
 
+  var hasta = Hasta();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Doktor Sayfası"),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () {
-              FirebaseAuth.instance
-                  .signOut()
-                  .then((value) => Hive.box('ayarlar').delete('personel'));
-            },
-          ),
-        ],
-      ),
-      body: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-              child: ListView(
-                children: [
-                  Center(),
-                  for (Hasta hst in _hastalar)
-                    Card(
-                      child: ListTile(
-                        title: Text("${hst.tcNo}"),
-                        subtitle: Text("${hst.isim} ${hst.soyisim}"),
-                        trailing: IconButton(
-                          icon: Icon(Icons.delete),
-                          color: Colors.red,
-                          onPressed: hst.firebasedenSil,
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: LayoutBuilder(
-              builder: (context, constraints) => Container(
-                color: Colors.white,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 80, vertical: 40),
-                child: Column(
-                  children: [
-                    Center(),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Hasta Kimlik Numarası:",
-                      ),
-                      onChanged: (d) => _hasta.tcNo = d,
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Hastanın İsmi:",
-                      ),
-                      onChanged: (d) => _hasta.tcNo = d,
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Hastanın Soyismi:",
-                      ),
-                      onChanged: (d) => _hasta.tcNo = d,
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Hastanın Adresi:",
-                      ),
-                      onChanged: (d) => _hasta.tcNo = d,
-                    ),
-                    SizedBox(height: 8),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: "Hastanın Doğum Tarihi:",
-                      ),
-                      onChanged: (d) => _hasta.tcNo = d,
-                    ),
-                    SizedBox(height: 8),
-                    OutlinedButton(
-                      onPressed: _hasta.firebaseEkle,
-                      child: Text("Güncelle"),
-                    ),
-                    SizedBox(height: 8),
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          OutlinedButton(
-                            onPressed: () => _receteDialog(context),
-                            child: Text("Reçete Ekle"),
-                          ),
-                          OutlinedButton(
-                            onPressed: () => _raporDialog(context),
-                            child: Text("Rapor Ekle"),
-                          ),
-                          OutlinedButton(
-                            onPressed: () => _islemDialog(context),
-                            child: Text("İşlem Ekle"),
-                          ),
-                          OutlinedButton(
-                            onPressed: () => _tedaviDialog(context),
-                            child: Text("Tedavi Ekle"),
-                          ),
-                        ])
-                  ],
+    final tcNoCtrl = TextEditingController(text: hasta.tcNo);
+    final isimCtrl = TextEditingController(text: hasta.isim);
+    final sIsimCtrl = TextEditingController(text: hasta.soyisim);
+    final adresCtrl = TextEditingController(text: hasta.adres);
+    return StreamBuilder<List<Hasta>>(
+      stream: widget.hasta.tumHastalariGetir(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Doktor Sayfası"),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.exit_to_app),
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut().then(
+                        (value) => Hive.box('ayarlar').delete('personel'));
+                  },
                 ),
-              ),
+              ],
             ),
-          ),
-        ],
-      ),
+            body: Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+                    child: ListView(
+                      children: [
+                        Center(),
+                        for (Hasta hst in _hastalar)
+                          Card(
+                            child: ListTile(
+                              title: Text("${hst.tcNo}"),
+                              subtitle: Text("${hst.isim} ${hst.soyisim}"),
+                              trailing: IconButton(
+                                icon: Icon(Icons.edit),
+                                color: Colors.green,
+                                onPressed: () {
+                                  hasta = hasta;
+                                  setState(() {});
+                                },
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 40),
+                    child: Column(
+                      children: [
+                        Center(),
+                        TextField(
+                          controller: tcNoCtrl,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Hasta Kimlik Numarası:",
+                          ),
+                          onChanged: (d) => _hasta.tcNo = d,
+                        ),
+                        SizedBox(height: 8),
+                        TextField(
+                          controller: isimCtrl,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Hastanın İsmi:",
+                          ),
+                          onChanged: (d) => _hasta.isim = d,
+                        ),
+                        SizedBox(height: 8),
+                        TextField(
+                          controller: sIsimCtrl,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Hastanın Soyismi:",
+                          ),
+                          onChanged: (d) => _hasta.soyisim = d,
+                        ),
+                        SizedBox(height: 8),
+                        TextField(
+                          controller: adresCtrl,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Hastanın Adresi:",
+                          ),
+                          onChanged: (d) => _hasta.adres = d,
+                        ),
+                        SizedBox(height: 8),
+                        TextField(
+                          controller: dateCtl,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: "Hastanın Doğum Tarihi",
+                          ),
+                          onTap: () async {
+                            tarihSec(context);
+                            setState(() {});
+                          },
+                          keyboardType: TextInputType.datetime,
+                        ),
+                        SizedBox(height: 8),
+                        OutlinedButton(
+                          onPressed: () async {
+                            await hasta.firebaseEkle();
+                            tcNoCtrl.clear();
+                            isimCtrl.clear();
+                            sIsimCtrl.clear();
+                            adresCtrl.clear();
+                          },
+                          child: Text("Güncelle"),
+                        ),
+                        SizedBox(height: 8),
+                        Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              OutlinedButton(
+                                onPressed: () => _receteDialog(context),
+                                child: Text("Reçete Ekle"),
+                              ),
+                              OutlinedButton(
+                                onPressed: () => _raporDialog(context),
+                                child: Text("Rapor Ekle"),
+                              ),
+                              OutlinedButton(
+                                onPressed: () => _islemDialog(context),
+                                child: Text("İşlem Ekle"),
+                              ),
+                              OutlinedButton(
+                                onPressed: () => _tedaviDialog(context),
+                                child: Text("Tedavi Ekle"),
+                              ),
+                            ])
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+        } else
+          return Center(child: CircularProgressIndicator());
+      },
     );
   }
 }

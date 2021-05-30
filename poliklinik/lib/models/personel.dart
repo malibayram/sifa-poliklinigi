@@ -76,7 +76,7 @@ class Personel {
     this.sifre = json?['sifre'];
     this.isim = json?['isim'];
     this.soyisim = json?['soyisim'];
-    this.telNo = json?['telNo'];
+    this.telNo = json?['tel-no'];
   }
 
   Map<String, dynamic> toJson() {
@@ -96,6 +96,10 @@ class Personel {
 
     await _personelColRef.doc(userCredential.user!.uid).set(this.toJson());
     return userCredential.user!.uid;
+  }
+
+  Future<void> guncelle() async {
+    await _personelColRef.doc(id).set(this.toJson());
   }
 
   Future<void> firebasedenSil() async {
