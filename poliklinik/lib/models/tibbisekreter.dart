@@ -1,21 +1,33 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hive/hive.dart';
 
 import 'hasta.dart';
 import 'klinik.dart';
 import 'randevu.dart';
 
 class TibbiSekreter {
+  Box? testBox;
   List<Klinik> klinikler = [];
-
-  final _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
   final _colKlinikRef = FirebaseFirestore.instance.collection('klinikler');
+
+  late final _colHastaRef;
+
+  TibbiSekreter({this.testBox}) {
+    if (testBox == null)
+      _colHastaRef = FirebaseFirestore.instance.collection('personeller');
+  }
 
   Future<Hasta> hastaSorgula(String tcNo) async {
     Hasta hasta = Hasta();
-    DocumentSnapshot<Map<String, dynamic>> hDoc =
-        await _colHastaRef.doc(tcNo).get();
-    if (hDoc.exists) hasta = Hasta.fromJson(hDoc.data()!);
-
+    if (testBox == null) {
+      DocumentSnapshot<Map<String, dynamic>> hDoc =
+          await _colHastaRef.doc(tcNo).get();
+      if (hDoc.exists) hasta = Hasta.fromJson(hDoc.data()!);
+    } else {
+      final testHasta = ['111111', 'Seda Koç'];
+      final result = testHasta.contains(tcNo);
+      if (result) await testBox!.put('hasta', 'tcNo');
+    }
     return hasta;
   }
 
