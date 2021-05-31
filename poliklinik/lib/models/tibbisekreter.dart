@@ -8,25 +8,29 @@ import 'randevu.dart';
 class TibbiSekreter {
   Box? testBox;
   List<Klinik> klinikler = [];
-  final _colKlinikRef = FirebaseFirestore.instance.collection('klinikler');
 
+//final _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
   late final _colHastaRef;
+  late final _colKlinikRef;
 
   TibbiSekreter({this.testBox}) {
-    if (testBox == null)
-      _colHastaRef = FirebaseFirestore.instance.collection('personeller');
+    if (testBox == null) {
+      _colHastaRef = FirebaseFirestore.instance.collection('hastalar');
+      _colKlinikRef = FirebaseFirestore.instance.collection('klinikler');
+    }
   }
 
-  Future<Hasta> hastaSorgula(String tcNo) async {
-    Hasta hasta = Hasta();
+  Future<Hasta?> hastaSorgula(String tcNo) async {
+    Hasta? hasta;
     if (testBox == null) {
+      hasta = Hasta();
       DocumentSnapshot<Map<String, dynamic>> hDoc =
           await _colHastaRef.doc(tcNo).get();
       if (hDoc.exists) hasta = Hasta.fromJson(hDoc.data()!);
     } else {
       final testHasta = ['111111', 'Seda Koç'];
       final result = testHasta.contains(tcNo);
-      if (result) await testBox!.put('hasta', 'tcNo');
+      if (result) await testBox!.put('hasta', tcNo);
     }
     return hasta;
   }
