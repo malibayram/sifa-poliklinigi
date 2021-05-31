@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import 'doktor.dart';
 
@@ -8,10 +9,14 @@ class Klinik {
   String? adi;
   String? telNo;
   final doktorlar = ValueNotifier<List<Doktor>>([]);
+  Box? testBox;
 
-  final _klinikColRef = FirebaseFirestore.instance.collection('klinikler');
+  late final _klinikColRef;
 
-  Klinik();
+  Klinik({this.testBox}) {
+    if (testBox == null)
+      _klinikColRef = FirebaseFirestore.instance.collection('klinikler');
+  }
 
   Klinik.fromJson(Map json) {
     id = json['id'];
@@ -42,23 +47,35 @@ class Klinik {
   }
 
   Future<void> doktorEkle(Doktor doktor) async {
-    String dID = await doktor.firebaseEkle();
+    if (testBox == null) {
+      String dID = await doktor.firebaseEkle();
 
-    doktorlar.value = [...doktorlar.value, doktor];
-    await _klinikColRef.doc(id).update({
-      'doktorlar': FieldValue.arrayUnion([dID])
-    });
+      doktorlar.value = [...doktorlar.value, doktor];
+      await _klinikColRef.doc(id).update({
+        'doktorlar': FieldValue.arrayUnion([dID])
+      });
+    } else {
+      final testEkle = ['Mehmet Bal'];
+      final result = testEkle.contains(doktor);
+      if (result) await testBox!.put('doktor', doktor);
+    }
   }
 
   Future<void> doktorSil(Doktor doktor) async {
-    await doktor.firebasedenSil();
+    if (testBox == null) {
+      await doktor.firebasedenSil();
 
-    doktorlar.value =
-        doktorlar.value.where((element) => element.id != doktor.id).toList();
+      doktorlar.value =
+          doktorlar.value.where((element) => element.id != doktor.id).toList();
 
-    await _klinikColRef.doc(id).update({
-      'doktorlar': FieldValue.arrayRemove([doktor.id])
-    });
+      await _klinikColRef.doc(id).update({
+        'doktorlar': FieldValue.arrayRemove([doktor.id])
+      });
+    } else {
+      final testEkle = ['Mehmet Bal'];
+      final result = testEkle.contains(doktor);
+      if (result) await testBox!.put('doktor', doktor);
+    }
   }
 
   Future<void> firebaseEkle() async {
