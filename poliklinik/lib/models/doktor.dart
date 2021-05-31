@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hive/hive.dart';
 import 'package:poliklinik/models/randevu.dart';
 
 import 'hasta.dart';
@@ -7,8 +8,10 @@ import 'personel.dart';
 class Doktor extends Personel {
   List<Hasta> hastalar = [];
   List<Randevu> randevular = [];
+  Box? testBox;
 
-  final _personelColRef = FirebaseFirestore.instance.collection('personeller');
+  late final _personelColRef =
+      FirebaseFirestore.instance.collection('personeller');
 
   Doktor();
 
@@ -29,6 +32,12 @@ class Doktor extends Personel {
   }
 
   Future<void> guncelle() async {
-    await _personelColRef.doc(id).set(this.toJson());
+    if (testBox == null) {
+      await _personelColRef.doc(id).set(this.toJson());
+    } else {
+      final testHasta = ['111111'];
+      final result = testHasta.contains('111110');
+      if (result) await testBox!.put('hasta', '111110');
+    }
   }
 }
